@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveElevatorCommand extends Command {
+public class MoveElevatorWithJoysticksCommand extends Command {
 
-    public MoveElevatorCommand() {
+    public MoveElevatorWithJoysticksCommand() {
     	requires(Robot.ELEVATOR_SUBSYSTEM);
     }
 

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team151.robot.commands.DriveStraightCommand;
+import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
@@ -58,7 +58,8 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 		
-		autonomousCommand = new DriveStraightCommand(24);
+		//TUNE PID CONSTANTS
+		autonomousCommand = new DriveStraightPIDCommand(24, 0.5, 0, 0);
 	}
 
 	/**

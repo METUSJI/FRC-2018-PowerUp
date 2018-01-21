@@ -2,6 +2,7 @@ package org.usfirst.frc.team151.robot;
 
 
 import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
+import org.usfirst.frc.team151.robot.commands.MoveElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.NeutralClawCommand;
 import org.usfirst.frc.team151.robot.commands.OpenClawCommand;
 
@@ -19,6 +20,7 @@ public class CoDriverOI extends OI {
 		x = new JoystickButton(joystick, RobotMap.X);
 		y = new JoystickButton(joystick, RobotMap.Y);
 		a = new JoystickButton(joystick, RobotMap.A);
+		b = new JoystickButton(joystick, RobotMap.B);
 		
 		x.whenPressed(new CloseClawCommand());
 		y.whenPressed(new OpenClawCommand());

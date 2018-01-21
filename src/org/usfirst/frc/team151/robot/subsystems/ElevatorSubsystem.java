@@ -3,10 +3,7 @@ package org.usfirst.frc.team151.robot.subsystems;
 import org.usfirst.frc.team151.robot.OI;
 import org.usfirst.frc.team151.robot.Robot;
 import org.usfirst.frc.team151.robot.RobotMap;
-import org.usfirst.frc.team151.robot.commands.ElevatorDropCommand;
-import org.usfirst.frc.team151.robot.commands.ElevatorLiftCommand;
-import org.usfirst.frc.team151.robot.commands.ElevatorNeutralCommand;
-import org.usfirst.frc.team151.robot.commands.MoveElevatorCommand;
+import org.usfirst.frc.team151.robot.commands.MoveElevatorWithJoysticksCommand;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Spark;
@@ -37,20 +34,12 @@ public class ElevatorSubsystem extends Subsystem {
 	
 	
     public void initDefaultCommand() {
-        setDefaultCommand(new MoveElevatorCommand());
+        setDefaultCommand(new MoveElevatorWithJoysticksCommand());
     }
     
     
-    public void liftElevator() {
-    	elevator.set(0.5);
-	}
-    
-    public void dropElevator() {
-    	elevator.set(-0.5);
-    }
-    
-    public void neutralElevator() {
-    	elevator.set(0);
+    public void moveElevator(double speed) {
+    	elevator.set(speed);
     }
     
     public void manualElevator(OI oi) {
