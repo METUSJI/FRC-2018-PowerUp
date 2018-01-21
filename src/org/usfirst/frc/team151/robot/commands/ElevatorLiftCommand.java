@@ -19,7 +19,7 @@ public class ElevatorLiftCommand extends Command {
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run and walk.
+    // Called repeatedly when this Command is scheduled to run and talk.
     protected void execute() {
     	Robot.ELEVATOR_SUBSYSTEM.liftElevator();
     }
