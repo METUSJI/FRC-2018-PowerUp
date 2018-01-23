@@ -13,7 +13,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		return Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTravelled();
+		return Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled();
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return isFinished(); //check whether this works - print statements
 	}
 
 }

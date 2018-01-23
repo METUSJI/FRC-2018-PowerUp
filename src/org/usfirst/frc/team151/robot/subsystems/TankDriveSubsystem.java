@@ -130,7 +130,7 @@ public class TankDriveSubsystem extends Subsystem {
 	 * Return the linear distance travelled by the robot.
 	 * @return The linear distance travelled by the robot by averaging the distance recorded by the two encoders.
 	 */
-	public double getDistanceTravelled() {
+	public double getDistanceTraveled() {
 		return leftEnc.getDistance();
 	}
 	

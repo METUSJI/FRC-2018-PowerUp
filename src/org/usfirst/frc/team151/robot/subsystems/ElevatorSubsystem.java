@@ -6,6 +6,7 @@ import org.usfirst.frc.team151.robot.RobotMap;
 import org.usfirst.frc.team151.robot.commands.MoveElevatorWithJoysticksCommand;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -29,7 +30,6 @@ public class ElevatorSubsystem extends Subsystem {
 
 	public ElevatorSubsystem() {
 		elevator = new Victor(RobotMap.ELEVATOR_MOTOR);
-		
 	}
 	
 	
