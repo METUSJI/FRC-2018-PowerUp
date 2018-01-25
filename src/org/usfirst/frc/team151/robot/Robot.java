@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team151.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -11,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
-import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
+//import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 
 /**
@@ -24,7 +26,7 @@ import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 public class Robot extends IterativeRobot {
 
 	public static final TankDriveSubsystem TANK_DRIVE_SUBSYSTEM = new TankDriveSubsystem();
-	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
+//	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
 	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
 	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
 	
@@ -57,6 +59,9 @@ public class Robot extends IterativeRobot {
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+		
 		
 		//TUNE PID CONSTANTS
 		autonomousCommand = new DriveStraightPIDCommand(24, 0.5, 0, 0);
