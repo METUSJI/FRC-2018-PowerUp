@@ -1,10 +1,13 @@
 package org.usfirst.frc.team151.robot.utils;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 public class FieldData {
 	String gameData;
 	
 	private boolean isDataValid() {
 		if (gameData.equals("")) {
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
 			
 		}
 		return true; // stub
@@ -20,7 +23,7 @@ public class FieldData {
 		return (gameData.charAt(0) == 'L');
 	}
 	
-	public boolean ScaleIsOnTheLeft() {
+	public boolean ScaleIsOnTheLeft() {	
 		isDataValid();
 		return (gameData.charAt(1) == 'L');
 	}
