@@ -24,7 +24,8 @@ public class TankDriveSubsystem extends Subsystem {
 	private SpeedControllerGroup right = null;
 	private SpeedControllerGroup left = null;
 	
-	private Encoder leftEnc = null;
+	public Encoder leftEnc = null;
+	public Encoder rightEnc = null;
 	
 	private ADXRS450_Gyro gyro = null;
 	
@@ -46,8 +47,11 @@ public class TankDriveSubsystem extends Subsystem {
 		
 		leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, 
 				RobotMap.LEFT_DRIVE_ENCODER_B, false, EncodingType.k4X);
+		rightEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENCODER_A, 
+				RobotMap.RIGHT_DRIVE_ENCODER_B, false, EncodingType.k4X);
 		
 		leftEnc.setDistancePerPulse(Robot.DISTANCE_PER_PULSE);
+		rightEnc.setDistancePerPulse(Robot.DISTANCE_PER_PULSE);
 		
 		leftEnc.reset();
 		
@@ -89,7 +93,7 @@ public class TankDriveSubsystem extends Subsystem {
 		double left = initLeft + skim(initRight);
 		double right = initRight + skim(initLeft);
 		
-		drive(left, right);
+		drive(0.5 * left, 0.5 * right);
 	}
 	
 	private double skim(double speed) {
@@ -153,6 +157,10 @@ public class TankDriveSubsystem extends Subsystem {
 	public void resetAll() {
 		leftEnc.reset();
 		gyro.reset();
+	}
+	
+	public double getEncoder() {
+		return (leftEnc.getDistance() + rightEnc.getDistance()) / 2;
 	}
 
 }
