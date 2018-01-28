@@ -35,7 +35,7 @@ public class TankDriveSubsystem extends Subsystem {
 		leftRear = new Talon(RobotMap.DRIVE_LEFT_REAR);
 		leftFront = new Talon(RobotMap.DRIVE_LEFT_FRONT);
 		rightRear = new Talon(RobotMap.DRIVE_RIGHT_REAR);
-		rightFront = new Talon(RobotMap.DRIVE_RIGHT_FRONT);
+		rightFront = new Talon(RobotMap.DRIVE_RIGHT_FRONT); 
 	
 		right = new SpeedControllerGroup(rightFront, rightRear);
 		left = new SpeedControllerGroup(leftFront, leftRear);

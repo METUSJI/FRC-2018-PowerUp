@@ -8,7 +8,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	public DriveStraightPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
-		setSetpoint(setpoint);
+		setSetpoint(setpoint); 
 	}
 
 	@Override

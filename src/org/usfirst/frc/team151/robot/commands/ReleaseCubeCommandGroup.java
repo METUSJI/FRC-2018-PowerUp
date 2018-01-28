@@ -4,7 +4,7 @@
 //
 //public class ReleaseCubeCommandGroup extends CommandGroup {
 //	
-//	public ReleaseCubeCommandGroup() {
+//	public ReleaseCubeCommandGroup() { 
 //		
 //		addSequential(new SpinClawWheelsReverseCommand());
 //		//calls SCWRC class and makes the cube go out of the claws

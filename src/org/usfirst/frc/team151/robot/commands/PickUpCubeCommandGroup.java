@@ -4,7 +4,7 @@
 //
 //public class PickUpCubeCommandGroup extends CommandGroup {
 //
-//	public PickUpCubeCommandGroup() {
+//	public PickUpCubeCommandGroup() { 
 //		
 //		addSequential(new CloseClawCommand());
 //		//Closes the claws onto the cube

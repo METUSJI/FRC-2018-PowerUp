@@ -21,7 +21,7 @@ public class OI {
 	protected JoystickButton back;
 	protected JoystickButton start;
 	protected JoystickButton leftJoyDown;
-	protected JoystickButton rightJoyDown;	
+	protected JoystickButton rightJoyDown;
 
 	public OI(int joystickChannel) {		
 		joystick = new Joystick(joystickChannel);	
