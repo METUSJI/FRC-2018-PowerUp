@@ -19,13 +19,14 @@ public class DriveStraightEncoderCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
+    	Robot.TANK_DRIVE_SUBSYSTEM.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.TANK_DRIVE_SUBSYSTEM.getEncoder() < distance) {
-    		Robot.TANK_DRIVE_SUBSYSTEM.drive(0.25, 0.25);
+    	//Robot.TANK_DRIVE_SUBSYSTEM.getEncoders()
+    	if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance()) < distance) {
+    		Robot.TANK_DRIVE_SUBSYSTEM.drive(0.5, 0.5);
     		System.out.println("Left Encoder Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance());
     		System.out.println("Left Encoder Count: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
     		System.out.println("Right Encoder Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
@@ -39,11 +40,13 @@ public class DriveStraightEncoderCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+    	System.out.println("Finished");
+        return isFinished;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.TANK_DRIVE_SUBSYSTEM.resetEncoders();
     }
 
     // Called when another command which requires one or more of the same

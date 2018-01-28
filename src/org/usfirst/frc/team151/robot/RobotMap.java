@@ -21,8 +21,8 @@ public class RobotMap {
 	//DIO PORTS
 	public static final int LEFT_DRIVE_ENCODER_A = 0;
 	public static final int LEFT_DRIVE_ENCODER_B = 1;
-	public static final int RIGHT_DRIVE_ENCODER_A = 0;
-	public static final int RIGHT_DRIVE_ENCODER_B = 1;
+	public static final int RIGHT_DRIVE_ENCODER_A = 2;
+	public static final int RIGHT_DRIVE_ENCODER_B = 3;
 	
 	//SOLENOID CHANNEL
 	public static final int RIGHT_CLAW_FORWARD_CHANNEL = 5;

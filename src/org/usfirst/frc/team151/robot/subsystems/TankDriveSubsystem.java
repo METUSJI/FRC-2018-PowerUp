@@ -27,7 +27,7 @@ public class TankDriveSubsystem extends Subsystem {
 	public Encoder leftEnc = null;
 	public Encoder rightEnc = null;
 	
-	private ADXRS450_Gyro gyro = null;
+//	private ADXRS450_Gyro gyro = null;
 	
 	private DifferentialDrive drive = null;
 	
@@ -55,9 +55,9 @@ public class TankDriveSubsystem extends Subsystem {
 		
 		leftEnc.reset();
 		
-		gyro = new ADXRS450_Gyro();
-		gyro.calibrate();
-		gyro.reset();
+//		gyro = new ADXRS450_Gyro();
+//		gyro.calibrate();
+//		gyro.reset();
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class TankDriveSubsystem extends Subsystem {
 		double left = initLeft + skim(initRight);
 		double right = initRight + skim(initLeft);
 		
-		drive(0.5 * left, 0.5 * right);
+		drive(left, right);
 	}
 	
 	private double skim(double speed) {
@@ -142,22 +142,23 @@ public class TankDriveSubsystem extends Subsystem {
 	 * The angle of the robot.
 	 * @return The angle of the robot based on the gyro.
 	 */
-	public double getAngle() {
-		return gyro.getAngle();
-	}
-	
+//	public double getAngle() {
+//		return gyro.getAngle();
+//	}
+//	
 	public void resetEncoders() {
 		leftEnc.reset();
+		rightEnc.reset();
 	}
-	
-	public void resetGyro() {
-		gyro.reset();
-	}
-	
-	public void resetAll() {
-		leftEnc.reset();
-		gyro.reset();
-	}
+//	
+//	public void resetGyro() {
+//		gyro.reset();
+//	}
+//	
+//	public void resetAll() {
+//		leftEnc.reset();
+//		gyro.reset();
+//	}
 	
 	public double getEncoder() {
 		return (leftEnc.getDistance() + rightEnc.getDistance()) / 2;

@@ -1,10 +1,10 @@
 package org.usfirst.frc.team151.robot;
 
 
-import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
-//import org.usfirst.frc.team151.robot.commands.MoveElevatorPIDCommand;
-import org.usfirst.frc.team151.robot.commands.NeutralClawCommand;
-import org.usfirst.frc.team151.robot.commands.OpenClawCommand;
+//import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
+////import org.usfirst.frc.team151.robot.commands.MoveElevatorPIDCommand;
+//import org.usfirst.frc.team151.robot.commands.NeutralClawCommand;
+//import org.usfirst.frc.team151.robot.commands.OpenClawCommand;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -22,9 +22,9 @@ public class CoDriverOI extends OI {
 		a = new JoystickButton(joystick, RobotMap.A);
 		b = new JoystickButton(joystick, RobotMap.B);
 		
-		x.whenPressed(new CloseClawCommand());
-		y.whenPressed(new OpenClawCommand());
-		a.whenPressed(new NeutralClawCommand());
+//		x.whenPressed(new CloseClawCommand());
+//		y.whenPressed(new OpenClawCommand());
+//		a.whenPressed(new NeutralClawCommand());
 				
 	}
 }

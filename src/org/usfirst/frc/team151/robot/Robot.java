@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team151.robot.commands.DriveStraightEncoderCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
-import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
-import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
+//import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
+//import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 
@@ -29,15 +29,15 @@ public class Robot extends IterativeRobot {
 
 	public static final TankDriveSubsystem TANK_DRIVE_SUBSYSTEM = new TankDriveSubsystem();
 //	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
-	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
-	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
+//	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
+//	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
 	
 	
 
 	/**
 	 * The distance per pulse on the encoder, based on the wheel diameter divided by 1440 pulses per revolution
 	 */
-	public static final double DISTANCE_PER_PULSE = 7.65 * Math.PI / 1440;
+	public static final double DISTANCE_PER_PULSE = 7.65 * Math.PI / 360;
 	
 	public static DriverOI driverOI;
 	public static CoDriverOI coDriverOI;
@@ -66,7 +66,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND
-		autonomousCommand = new DriveStraightEncoderCommand(24);
+		autonomousCommand = new DriveStraightEncoderCommand(7.65 * Math.PI);
 	}
 
 	/**
@@ -134,7 +134,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println("Gyro value: " + TANK_DRIVE_SUBSYSTEM.getAngle());
+		System.out.println("Count: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
+		System.out.println("Count: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
 	}
 
 	/**
