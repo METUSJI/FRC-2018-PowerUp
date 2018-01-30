@@ -25,8 +25,8 @@ public class DriveStraightEncoderCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//Robot.TANK_DRIVE_SUBSYSTEM.getEncoders()
-    	if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance()) < distance) { 
-    		Robot.TANK_DRIVE_SUBSYSTEM.drive(0.5, 0.5);
+    	if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.getEncoder()) < distance) { 
+    		Robot.TANK_DRIVE_SUBSYSTEM.drive(-0.5, -0.5); //NOTE: DIRECTION IS INVERTED
     		System.out.println("Left Encoder Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance());
     		System.out.println("Left Encoder Count: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
     		System.out.println("Right Encoder Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());

@@ -48,6 +48,8 @@ public class Robot extends IterativeRobot {
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	
+	public static boolean autoOn = false;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -66,7 +68,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND
-		autonomousCommand = new DriveStraightEncoderCommand(7.65 * Math.PI);
+		autonomousCommand = new DriveStraightPIDCommand(48, 0.05, 0, 0);
 	}
 
 	/**

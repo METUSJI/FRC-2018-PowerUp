@@ -4,6 +4,7 @@ import org.usfirst.frc.team151.robot.OI;
 import org.usfirst.frc.team151.robot.Robot;
 import org.usfirst.frc.team151.robot.RobotMap;
 import org.usfirst.frc.team151.robot.commands.DriveWithJoysticksCommand;
+import org.usfirst.frc.team151.robot.commands.TankDriveNeutralCommand;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
@@ -54,6 +55,9 @@ public class TankDriveSubsystem extends Subsystem {
 		rightEnc.setDistancePerPulse(Robot.DISTANCE_PER_PULSE);
 		
 		leftEnc.reset();
+		rightEnc.reset();
+		
+		rightEnc.setReverseDirection(true);
 		
 //		gyro = new ADXRS450_Gyro();
 //		gyro.calibrate();
