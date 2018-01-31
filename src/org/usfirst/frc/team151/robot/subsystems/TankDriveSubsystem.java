@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class TankDriveSubsystem extends Subsystem {
 	
 	private SpeedController leftRear = null;
-	private SpeedController leftFront = null;
+	private SpeedController leftFront = null; 
 	private SpeedController rightRear = null;
 	private SpeedController rightFront = null;
 	

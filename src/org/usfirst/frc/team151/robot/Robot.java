@@ -67,7 +67,7 @@ public class Robot extends IterativeRobot {
 //		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
 		
 		
-		//TUNE PID CONSTANTS WHEN USING PID COMMAND
+		//TUNE PID CONSTANTS WHEN USING PID COMMAND 
 		autonomousCommand = new DriveStraightPIDCommand(48, 0.03, 0, 0);
 	}
 
