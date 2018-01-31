@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightEncoderCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 //import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
@@ -68,7 +69,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND 
-		autonomousCommand = new DriveStraightPIDCommand(48, 0.03, 0, 0);
+		autonomousCommand = new AutoTurnPIDCommand(90, 0.01, 0, 0);
 	}
 
 	/**

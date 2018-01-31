@@ -27,7 +27,7 @@ public class TankDriveSubsystem extends Subsystem {
 	public Encoder leftEnc = null;
 	public Encoder rightEnc = null;
 	
-//	private ADXRS450_Gyro gyro = null;
+	public ADXRS450_Gyro gyro = null;
 	
 	private DifferentialDrive drive = null;
 	
@@ -58,9 +58,9 @@ public class TankDriveSubsystem extends Subsystem {
 		
 		rightEnc.setReverseDirection(true);
 		
-//		gyro = new ADXRS450_Gyro();
-//		gyro.calibrate();
-//		gyro.reset();
+		gyro = new ADXRS450_Gyro();
+		gyro.calibrate();
+		gyro.reset();
 	}
 	
 	/**
