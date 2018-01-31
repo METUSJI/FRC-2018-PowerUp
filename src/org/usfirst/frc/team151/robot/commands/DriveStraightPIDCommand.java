@@ -4,6 +4,7 @@ import org.usfirst.frc.team151.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDCommand;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class DriveStraightPIDCommand extends PIDCommand {
 	
@@ -13,31 +14,36 @@ public class DriveStraightPIDCommand extends PIDCommand {
 	public DriveStraightPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
 		setSetpoint(setpoint);
-		getPIDController().setAbsoluteTolerance(0.5);
+		getPIDController().setAbsoluteTolerance(3);
 		distance = setpoint;
-		Robot.autoOn = true;
+		//Robot.autoOn = true;
+		
+		//LiveWindow.addActuator(moduleType, channel, component);
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		if (count % 7 == 0) {
+		if (count % 3 == 0) {
 			System.out.println("Travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled());
+			System.out.println("Left Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
+			System.out.println("Right Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
 		}
 		count++;
-		Robot.autoOn = true;
+		//Robot.autoOn = true;
 		return Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.TANK_DRIVE_SUBSYSTEM.drive(-output,  -output); //direction is inverted
+		Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, -output); //direction is inverted
 	}
 
 	@Override
 	protected boolean isFinished() {
 		if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.getEncoder() - distance) < 0.5) {
 			System.out.println("Finished");
-			Robot.autoOn = false;
+			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
+			//Robot.autoOn = false;
 			return true;
 		}
 		else {

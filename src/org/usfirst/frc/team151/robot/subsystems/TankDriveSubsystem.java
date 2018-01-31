@@ -96,7 +96,7 @@ public class TankDriveSubsystem extends Subsystem {
 		double left = initLeft + skim(initRight);
 		double right = initRight + skim(initLeft);
 		
-		drive(left, right);
+		drive(0.7 * left, 0.7 * right);
 	}
 	
 	private double skim(double speed) {

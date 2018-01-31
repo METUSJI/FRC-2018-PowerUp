@@ -68,7 +68,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND
-		autonomousCommand = new DriveStraightPIDCommand(48, 0.05, 0, 0);
+		autonomousCommand = new DriveStraightPIDCommand(48, 0.03, 0, 0);
 	}
 
 	/**
@@ -108,8 +108,12 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.start();
+			autoOn = true;
+		}
+
+		
 	}
 
 	/**
@@ -126,8 +130,10 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel(); 
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
+			autoOn = false;
+		}
 	}
 
 	/**
