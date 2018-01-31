@@ -142,8 +142,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println("Count: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
-		System.out.println("Count: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
+		System.out.println("LeftCount: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
+		System.out.println("RightCount: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
+		
 	}
 
 	/**

@@ -43,6 +43,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 		if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.getEncoder() - distance) < 0.5) {
 			System.out.println("Finished");
 			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
+			getPIDController().disable();
 			//Robot.autoOn = false;
 			return true;
 		}
