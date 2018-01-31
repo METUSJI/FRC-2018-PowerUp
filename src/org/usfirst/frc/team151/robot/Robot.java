@@ -135,7 +135,7 @@ public class Robot extends IterativeRobot {
 			autoOn = false;
 		}
 	}
-
+ 
 	/**
 	 * This function is called periodically during operator control
 	 */

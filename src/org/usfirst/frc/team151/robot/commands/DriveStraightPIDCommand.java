@@ -23,7 +23,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		if (count % 3 == 0) { 
+		if (count % 3 == 0) {  
 			System.out.println("Travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled());
 			System.out.println("Left Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
 			System.out.println("Right Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
