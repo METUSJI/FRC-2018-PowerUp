@@ -96,7 +96,11 @@ public class TankDriveSubsystem extends Subsystem {
 		double left = initLeft + skim(initRight);
 		double right = initRight + skim(initLeft);
 		
-		drive(0.7 * left, 0.7 * right);
+		drive(0.5 * left, 0.5 * right);
+		
+		System.out.println(Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+		System.out.println("Current left motor output: " + 0.3 * left);
+		System.out.println("Current right motor output: " + 0.3 * right);
 	}
 	
 	private double skim(double speed) {

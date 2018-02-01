@@ -69,7 +69,7 @@ public class Robot extends IterativeRobot {
 		
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND 
-		autonomousCommand = new AutoTurnPIDCommand(90, 0.01, 0, 0);
+		autonomousCommand = new AutoTurnPIDCommand(90, 0.016, 0, 0.002);
 	}
 
 	/**

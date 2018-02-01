@@ -9,14 +9,20 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class AutoTurnPIDCommand extends PIDCommand {
 	
 	double angle;
-	private int count;
+	private int count = 0;
+	double currentOutput = 0;
+	
+	double MINIMUM_OUTPUT = -0.7;
+	double MAXIMUM_OUTPUT = 0.7;
 	
 	public AutoTurnPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
 		setSetpoint(setpoint);
 		getPIDController().setAbsoluteTolerance(2);
 		angle = setpoint;
+		Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		//Robot.autoOn = true;
+		getPIDController().setOutputRange(MINIMUM_OUTPUT, MAXIMUM_OUTPUT);
 		
 		//LiveWindow.addActuator(moduleType, channel, component);
 	}
@@ -33,7 +39,8 @@ public class AutoTurnPIDCommand extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, output); //direction is inverted
+		Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, output); 
+		currentOutput = output;
 	}
 
 	@Override
@@ -41,11 +48,13 @@ public class AutoTurnPIDCommand extends PIDCommand {
 		if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.getEncoder() - angle) < 2) {
 			System.out.println("Finished");
 			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
+			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 			getPIDController().disable();
 			//Robot.autoOn = false;
 			return true;
 		}
 		else {
+			System.out.println("Current motor output: " + currentOutput);
 			return false;
 		}
 	}
