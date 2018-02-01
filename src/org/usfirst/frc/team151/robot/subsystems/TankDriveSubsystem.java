@@ -89,7 +89,7 @@ public class TankDriveSubsystem extends Subsystem {
 		
 		if(throttle != 0)
 			turn = turn * Math.abs(throttle);
-		
+		 
 		double initLeft = throttle - turn;
 		double initRight = throttle + turn;
 		

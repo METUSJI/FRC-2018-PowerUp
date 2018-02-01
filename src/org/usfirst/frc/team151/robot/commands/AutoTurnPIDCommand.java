@@ -11,7 +11,7 @@ public class AutoTurnPIDCommand extends PIDCommand {
 	double angle;
 	private int count = 0;
 	double currentOutput = 0;
-	
+	 
 	double MINIMUM_OUTPUT = -0.7;
 	double MAXIMUM_OUTPUT = 0.7;
 	

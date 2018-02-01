@@ -58,7 +58,7 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {		
+	public void robotInit() {	
 		driverOI = new DriverOI(0);
 //		coDriverOI = new CoDriverOI(0); //UNCOMMENT WHEN USING TWO CONTROLLERS
 		
