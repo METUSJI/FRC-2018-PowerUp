@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class DriveStraightPIDCommand extends PIDCommand {
-	
+
 	double distance;
 	private int count;
-	
+
 	public DriveStraightPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
 		setSetpoint(setpoint);
 		getPIDController().setAbsoluteTolerance(3);
 		distance = setpoint;
 		//Robot.autoOn = true;
-		
+
 		//LiveWindow.addActuator(moduleType, channel, component);
 	}
 
@@ -40,16 +40,14 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.getEncoder() - distance) < 0.5) {
+		boolean finished = getPIDController().onTarget();
+		if(finished) {
 			System.out.println("Finished");
 			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
 			getPIDController().disable();
 			//Robot.autoOn = false;
-			return true;
 		}
-		else {
-			return false;
-		}
+		return finished;
 	}
 
 }

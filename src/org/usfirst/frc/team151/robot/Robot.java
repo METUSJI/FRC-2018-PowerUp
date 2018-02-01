@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightEncoderCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
-//import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
+import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
-//import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
+import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 
 /**
@@ -29,8 +30,8 @@ import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 public class Robot extends IterativeRobot {
 
 	public static final TankDriveSubsystem TANK_DRIVE_SUBSYSTEM = new TankDriveSubsystem();
-//	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
-//	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
+	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
+	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
 //	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
 	
 	
