@@ -5,6 +5,7 @@ import org.usfirst.frc.team151.robot.Robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class AutoTurnPIDCommand extends PIDCommand {
 	
@@ -20,7 +21,7 @@ public class AutoTurnPIDCommand extends PIDCommand {
 		setSetpoint(setpoint);
 		getPIDController().setAbsoluteTolerance(2);
 		angle = setpoint;
-		Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+//		Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		//Robot.autoOn = true;
 		getPIDController().setOutputRange(MINIMUM_OUTPUT, MAXIMUM_OUTPUT);
 		
@@ -30,7 +31,8 @@ public class AutoTurnPIDCommand extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		if (count % 3 == 0) {  
-			System.out.println("Current Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+//			System.out.println("Current Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+			SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 		}
 		count++;
 		//Robot.autoOn = true;
@@ -45,16 +47,17 @@ public class AutoTurnPIDCommand extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		if (Math.abs(Robot.TANK_DRIVE_SUBSYSTEM.getEncoder() - angle) < 2) {
+		if  (getPIDController().onTarget()) {
 			System.out.println("Finished");
 			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
-			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			//Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 			getPIDController().disable();
 			//Robot.autoOn = false;
 			return true;
 		}
 		else {
-			System.out.println("Current motor output: " + currentOutput);
+//			System.out.println("Current motor output: " + currentOutput);
+//			System.out.println("is not finished");
 			return false;
 		}
 	}

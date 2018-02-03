@@ -14,10 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightEncoderCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
-import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
-import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
+//import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
+//import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
-import org.usfirst.frc.team151.robot.subsystems.ElevatorSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 
 /**
@@ -30,8 +29,8 @@ import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 public class Robot extends IterativeRobot {
 
 	public static final TankDriveSubsystem TANK_DRIVE_SUBSYSTEM = new TankDriveSubsystem();
-	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
-	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
+//	public static final ElevatorSubsystem ELEVATOR_SUBSYSTEM = new ElevatorSubsystem();
+//	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
 //	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
 	
 	
@@ -42,7 +41,7 @@ public class Robot extends IterativeRobot {
 	public static final double DISTANCE_PER_PULSE = 7.65 * Math.PI / 360;
 	
 	public static DriverOI driverOI;
-	public static CoDriverOI coDriverOI;
+//	public static CoDriverOI coDriverOI;
 	
 	public static boolean shooterOn = false;
 	public static boolean autoReleaseOn = false;
@@ -70,7 +69,8 @@ public class Robot extends IterativeRobot {
 		
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND 
-		autonomousCommand = new AutoTurnPIDCommand(90, 0.016, 0, 0.002);
+		autonomousCommand = new AutoTurnPIDCommand(45, 0.035, 0, 0.0); //d constant was 0.002
+		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
 	}
 
 	/**
@@ -111,8 +111,9 @@ public class Robot extends IterativeRobot {
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
-			autonomousCommand.start();
 			autoOn = true;
+			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			autonomousCommand.start();
 		}
 
 		
@@ -135,6 +136,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 			autoOn = false;
+			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		}
 	}
  
@@ -143,10 +145,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
-		System.out.println("LeftCount: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
-		System.out.println("RightCount: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
-		
+//		Scheduler.getInstance().run();
+//		System.out.println("LeftCount: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
+//		System.out.println("RightCount: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
+//		Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+		System.out.println("Current Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 	}
 
 	/**

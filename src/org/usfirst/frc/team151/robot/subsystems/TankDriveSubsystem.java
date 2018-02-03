@@ -8,6 +8,7 @@ import org.usfirst.frc.team151.robot.commands.DriveWithJoysticksCommand;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.SafePWM;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon; 
@@ -77,8 +78,8 @@ public class TankDriveSubsystem extends Subsystem {
 	 * @param oi The OI (operator interface) the driving is based on
 	 */
 	public void drive(OI oi) {
-		double left = 0.75 * deadzone(oi, RobotMap.LEFT_JOYSTICK_VERTICAL_AXIS);
-		double right = 0.80 * deadzone(oi, RobotMap.RIGHT_JOYSTICK_VERTICAL_AXIS);
+		double left = deadzone(oi, RobotMap.LEFT_JOYSTICK_VERTICAL_AXIS);
+		double right = deadzone(oi, RobotMap.RIGHT_JOYSTICK_VERTICAL_AXIS);
 		
 		drive(left, right);
 	}
