@@ -155,7 +155,7 @@ public class TankDriveSubsystem extends Subsystem {
 //	}
 //	
 	public void resetEncoders() {
-		leftEnc.reset();
+		leftEnc.reset(); 
 		rightEnc.reset();
 	}
 //	
