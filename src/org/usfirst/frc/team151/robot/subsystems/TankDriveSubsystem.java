@@ -59,9 +59,10 @@ public class TankDriveSubsystem extends Subsystem {
 		
 		rightEnc.setReverseDirection(true);
 		
-		gyro = new ADXRS450_Gyro();
-		gyro.calibrate();
-		gyro.reset();
+		//TODO uncomment
+//		gyro = new ADXRS450_Gyro();
+//		gyro.calibrate();
+//		gyro.reset();
 	}
 	
 	/**
@@ -99,7 +100,7 @@ public class TankDriveSubsystem extends Subsystem {
 		
 		drive(0.5 * left, 0.5 * right);
 		
-		System.out.println(Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+//		System.out.println(Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 		System.out.println("Current left motor output: " + 0.3 * left);
 		System.out.println("Current right motor output: " + 0.3 * right);
 	}

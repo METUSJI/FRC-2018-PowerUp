@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
+import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
@@ -60,7 +61,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {	
 		driverOI = new DriverOI(0);
-//		coDriverOI = new CoDriverOI(0); //UNCOMMENT WHEN USING TWO CONTROLLERS
+		coDriverOI = new CoDriverOI(1);
 		
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -68,8 +69,10 @@ public class Robot extends IterativeRobot {
 		
 //		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
 		
-		autonomousCommand = new AutoTurnPIDCommand(45, 0.035, 0, 0.0); //d constant was 0.002
-		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
+//		autonomousCommand = new AutoTurnPIDCommand(45, 0.035, 0, 0.0); //d constant was 0.002
+		autonomousCommand = new ChangeElevatorSetpointCommand(12);
+		//TODO uncomment
+//		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
 	}
 
 	/**
@@ -135,7 +138,8 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 			autoOn = false;
-			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			//TODO uncomment
+//			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		}
 	}
  
@@ -144,7 +148,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		System.out.println("Current Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+		//TODO uncomment
+		Scheduler.getInstance().run();	
+//		System.out.println("Current Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 	}
 
 	/**

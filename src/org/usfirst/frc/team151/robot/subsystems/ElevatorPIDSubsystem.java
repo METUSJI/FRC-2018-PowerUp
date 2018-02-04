@@ -32,13 +32,12 @@ public class ElevatorPIDSubsystem extends PIDSubsystem {
 		String time = "";
 		double height = getHeight();
 		//TODO take out printing stuff
-		if((Math.abs(getSetpoint() - lastHeight) > (0.01 * getSetpoint())) 
+		if((Math.abs(getSetpoint() - lastHeight) < (0.01 * getSetpoint())) 
 				&& (Math.abs(getSetpoint() - height) < (0.01 * getSetpoint()))) {
 			System.out.println("inside if");
 			Robot.endTime = System.nanoTime();
 			Robot.elapsedTime = (Robot.endTime - Robot.startTime) / 1000000000;
 			time = "Elapsed time: " + Robot.elapsedTime;
-			print = false;
 		}
 		if(print)
 			System.out.println("Height: " + getHeight() + "\t\t" + time);

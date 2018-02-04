@@ -11,19 +11,22 @@ public class ChangeElevatorSetpointCommand extends Command {
 	
 	private boolean isFinished = false;
 	private double setpoint = 0;
+	
 	public ChangeElevatorSetpointCommand(double setpoint) {
 		this.setpoint = setpoint;
-		
+		System.out.println("ChangeElevatorSetpointCommand initialized");
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		System.out.println("change el command initalize method");
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		System.out.println("ChangeElevatorSetpointCommand, setpoint: " + setpoint);
 		Robot.ELEVATOR_PID_SUBSYSTEM.changeSetpoint(setpoint);
 		Robot.elevatorPIDControl = true;
 		Robot.ELEVATOR_PID_SUBSYSTEM.enable();

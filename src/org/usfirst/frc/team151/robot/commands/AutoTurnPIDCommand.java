@@ -47,19 +47,21 @@ public class AutoTurnPIDCommand extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		if  (getPIDController().onTarget()) {
-			System.out.println("Finished");
-			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
-			//Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
-			getPIDController().disable();
-			//Robot.autoOn = false;
-			return true;
-		}
-		else {
-//			System.out.println("Current motor output: " + currentOutput);
-//			System.out.println("is not finished");
-			return false;
-		}
+		return getPIDController().onTarget();
+	}
+	
+	@Override
+	protected void interrupted() {
+		end();
+	}
+	
+	@Override
+	protected void end() {
+		System.out.println("Finished");
+		Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
+		//Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+		getPIDController().disable();
+		//Robot.autoOn = false;
 	}
 
 }
