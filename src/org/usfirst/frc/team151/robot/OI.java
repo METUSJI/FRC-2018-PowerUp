@@ -20,8 +20,8 @@ public class OI {
 	protected JoystickButton rightTrigger;
 	protected JoystickButton back;
 	protected JoystickButton start;
-	protected JoystickButton leftJoyDown;
-	protected JoystickButton rightJoyDown;
+	protected JoystickButton leftJoystick;
+	protected JoystickButton rightJoystick;
 
 	public OI(int joystickChannel) {		
 		joystick = new Joystick(joystickChannel);	
@@ -35,8 +35,8 @@ public class OI {
 		rightTrigger = null;
 		back = null;
 		start = null;
-		leftJoyDown = null;
-		rightJoyDown = null;
+		leftJoystick = null;
+		rightJoystick = null;
 	}
 
 	public Joystick getJoystick() {
