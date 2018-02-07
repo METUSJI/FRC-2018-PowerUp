@@ -13,13 +13,13 @@ public class AutoTurnPIDCommand extends PIDCommand {
 	private int count = 0;
 	double currentOutput = 0;
 	 
-	double MINIMUM_OUTPUT = -0.7;
-	double MAXIMUM_OUTPUT = 0.7; 
+	double MINIMUM_OUTPUT = -0.55;
+	double MAXIMUM_OUTPUT = 0.55; 
 	
 	public AutoTurnPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
 		setSetpoint(setpoint);
-		getPIDController().setAbsoluteTolerance(2);
+		getPIDController().setAbsoluteTolerance(1.5);
 		angle = setpoint;
 //		Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		//Robot.autoOn = true;
@@ -47,21 +47,19 @@ public class AutoTurnPIDCommand extends PIDCommand {
 
 	@Override
 	protected boolean isFinished() {
-		return getPIDController().onTarget();
-	}
-	
-	@Override
-	protected void interrupted() {
-		end();
-	}
-	
-	@Override
-	protected void end() {
-		System.out.println("Finished");
-		Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
-		//Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
-		getPIDController().disable();
-		//Robot.autoOn = false;
+		if  (getPIDController().onTarget()) {
+			System.out.println("Finished");
+			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
+			//Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			getPIDController().disable();
+			//Robot.autoOn = false;
+			return true;
+		}
+		else {
+//			System.out.println("Current motor output: " + currentOutput);
+//			System.out.println("is not finished");
+			return false;
+		}
 	}
 
 }
