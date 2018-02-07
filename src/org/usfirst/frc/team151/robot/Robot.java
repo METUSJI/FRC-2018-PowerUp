@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
-import org.usfirst.frc.team151.robot.commands.DriveStraightEncoderCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
