@@ -59,10 +59,9 @@ public class TankDriveSubsystem extends Subsystem {
 		
 		rightEnc.setReverseDirection(true);
 		
-		//TODO uncomment
-//		gyro = new ADXRS450_Gyro();
-//		gyro.calibrate();
-//		gyro.reset();
+		gyro = new ADXRS450_Gyro();
+		gyro.calibrate();
+		gyro.reset();
 	}
 	
 	/**
@@ -90,7 +89,7 @@ public class TankDriveSubsystem extends Subsystem {
 		double turn = deadzone(oi, RobotMap.RIGHT_JOYSTICK_LATERAL_AXIS);
 		
 		if(throttle != 0)
-			turn = turn * Math.abs(throttle);
+			turn = 0.25 * (turn * Math.abs(throttle)); // set to 0.25 to reduce super fast turning
 		 
 		double initLeft = throttle - turn;
 		double initRight = throttle + turn;
@@ -98,7 +97,7 @@ public class TankDriveSubsystem extends Subsystem {
 		double left = initLeft + skim(initRight);
 		double right = initRight + skim(initLeft);
 		
-		drive(0.5 * left, 0.5 * right);
+		drive(0.75 * left, 0.75 * right);
 		
 //		System.out.println(Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 		System.out.println("Current left motor output: " + 0.3 * left);

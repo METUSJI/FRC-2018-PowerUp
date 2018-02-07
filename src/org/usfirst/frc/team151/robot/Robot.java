@@ -13,7 +13,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
+import org.usfirst.frc.team151.robot.commands.DriveStraightEncoderCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
+import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
@@ -40,6 +42,8 @@ public class Robot extends IterativeRobot {
 	public static DriverOI driverOI;
 	public static CoDriverOI coDriverOI;
 	
+	public static boolean shooterOn = false;
+	public static boolean autoReleaseOn = false;
 	public static final double kPe = 0.2;
 	public static final double kIe = 0.01;
 	public static final double kDe = 0;
@@ -47,13 +51,13 @@ public class Robot extends IterativeRobot {
 	public static double startTime = 0;
 	public static double endTime = 0;
 	public static double elapsedTime = 0;
+	public static boolean autoReleasePrereqOn = false;
 	
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	public static boolean autoOn = false;
 	public static boolean elevatorPIDControl = false;
-	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -69,10 +73,11 @@ public class Robot extends IterativeRobot {
 		
 //		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
 		
-//		autonomousCommand = new AutoTurnPIDCommand(45, 0.035, 0, 0.0); //d constant was 0.002
-		autonomousCommand = new ChangeElevatorSetpointCommand(12);
-		//TODO uncomment
-//		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
+		
+		//TUNE PID CONSTANTS WHEN USING PID COMMAND 
+		autonomousCommand = new TestDriveCommand(); //d constant was 0.002
+		// autonomousCommand = new ChangeElevatorSetpointCommand(12);
+		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
 	}
 
 	/**
@@ -114,7 +119,8 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
 			autoOn = true;
-//			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			Robot.TANK_DRIVE_SUBSYSTEM.resetEncoders();
 			autonomousCommand.start();
 		}
 
@@ -137,10 +143,9 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
-			autoOn = false;
-			//TODO uncomment
-//			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		}
+		autoOn = false;
 	}
  
 	/**

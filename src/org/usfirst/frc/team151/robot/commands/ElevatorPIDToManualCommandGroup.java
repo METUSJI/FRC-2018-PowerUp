@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ElevatorPIDToManualCommandGroup extends CommandGroup {
 
     public ElevatorPIDToManualCommandGroup() {
-    	addSequential(new DisableElevatorPID_Command());
+    	addSequential(new DisableElevatorPIDCommand());
     	addSequential(new MoveElevatorWithJoysticksCommand());
     }
 }
