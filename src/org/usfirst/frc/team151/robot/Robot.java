@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
+import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
@@ -53,7 +54,8 @@ public class Robot extends IterativeRobot {
 	public static boolean autoReleasePrereqOn = false;
 	
 	Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
+	SendableChooser<Command> positionChooser = new SendableChooser<>();
+	SendableChooser<Command> strategyChooser = new SendableChooser<>();
 	
 	public static boolean autoOn = false;
 	public static boolean elevatorPIDControl = false;
@@ -68,7 +70,16 @@ public class Robot extends IterativeRobot {
 		
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", chooser);
+		positionChooser.addDefault("Left Autonomous", new AutoTurnPIDCommand(45, 0, 0, 0)); // I have no idea what the command or number is supposed to be here - Andrew
+		positionChooser.addObject("Right Autonomous", new AutoTurnPIDCommand(-45, 0, 0, 0));
+		positionChooser.addObject("Straight/Middle Autonomous", new DriveStraightPIDCommand(0, 0, 0, 0));
+		
+		strategyChooser.addDefault("Switch", new EnableElevatorPIDCommand());
+		strategyChooser.addDefault("Scale", new EnableElevatorPIDCommand());
+		strategyChooser.addDefault("Cross", new DriveStraightPIDCommand(0, 0, 0, 0));
+		
+		SmartDashboard.putData("Position Chooser", positionChooser);
+		SmartDashboard.putData("Strategy Chooser", strategyChooser);
 		
 //		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
 		
