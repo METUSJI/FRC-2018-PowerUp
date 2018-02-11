@@ -80,11 +80,13 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Position Chooser", positionChooser);
 		SmartDashboard.putData("Strategy Chooser", strategyChooser);
+		SmartDashboard.putData("AutoTurn", new AutoTurnPIDCommand(45, 0, 0, 0));
+		SmartDashboard.putData("Switch", new EnableElevatorPIDCommand());
 		
 //		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
 		
 		
-		//TUNE PID CONSTANTS WHEN USING PID COMMAND 
+		//TUNE PID CONSTANTS WHEN USING PID COMMAND fa
 		autonomousCommand = new TestDriveCommand(); //d constant was 0.002
 		// autonomousCommand = new ChangeElevatorSetpointCommand(12);
 		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
