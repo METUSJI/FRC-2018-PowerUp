@@ -16,7 +16,7 @@ public class ElevatorPIDSubsystem extends PIDSubsystem {
 	private SpeedController elevator = null;
 	Potentiometer height = new AnalogPotentiometer(RobotMap.ELEVATOR_ANALOG_INPUT, TOTAL_HEIGHT);
 	
-	private boolean print = true;
+	private boolean print = false;
 	
 	public ElevatorPIDSubsystem() {
 		super(Robot.kPe, Robot.kIe, Robot.kDe);
@@ -40,7 +40,7 @@ public class ElevatorPIDSubsystem extends PIDSubsystem {
 			time = "Elapsed time: " + Robot.elapsedTime;
 		}
 		if(print)
-			System.out.println("Height: " + getHeight() + "\t\t" + time);
+			System.out.println("Height: " + getHeight() + getSetpoint());
 		lastHeight = height;
 		return getHeight();
 	}
@@ -48,6 +48,8 @@ public class ElevatorPIDSubsystem extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		// TODO Auto-generated method stub
+//		System.out.println("Height in usePIDOutput: " + getHeight() + "\t Current setpoint: " + getSetpoint());
+//		System.out.println();
 		if(output < 0)
 			output = 0;
 		elevator.set(output);
@@ -68,7 +70,7 @@ public class ElevatorPIDSubsystem extends PIDSubsystem {
 	
 	public void manualElevator(OI oi) {
 		double speed = -oi.getJoystick().getRawAxis(RobotMap.RIGHT_JOYSTICK_VERTICAL_AXIS);
-		System.out.println("Height: " + Robot.ELEVATOR_PID_SUBSYSTEM.getHeight());
+		System.out.println("Height (manual): " + Robot.ELEVATOR_PID_SUBSYSTEM.getHeight());
 		elevator.set(speed);
 	}
 	

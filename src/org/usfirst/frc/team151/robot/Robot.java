@@ -87,7 +87,8 @@ public class Robot extends IterativeRobot {
 		
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND fa
-		autonomousCommand = new TestDriveCommand(); //d constant was 0.002
+//		autonomousCommand = new TestDriveCommand(); //d constant was 0.002
+		autonomousCommand = new ChangeElevatorSetpointCommand(12);
 		// autonomousCommand = new ChangeElevatorSetpointCommand(12);
 		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
 	}
