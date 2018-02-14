@@ -44,9 +44,18 @@ public class Robot extends IterativeRobot {
 	
 	public static boolean shooterOn = false;
 	public static boolean autoReleaseOn = false;
+	
 	public static final double kPe = 0.2;
 	public static final double kIe = 0.01;
 	public static final double kDe = 0;
+	
+	public static final double kPd = 0.02;
+	public static final double kId = 0;
+	public static final double KDd = 0;
+	
+	public static final double kPt = 0.035;
+	public static final double kIt = 0;
+	public static final double kDt = 0;
 	
 	public static double startTime = 0;
 	public static double endTime = 0;
@@ -100,7 +109,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		ELEVATOR_PID_SUBSYSTEM.disable();
 	}
 
 	@Override
