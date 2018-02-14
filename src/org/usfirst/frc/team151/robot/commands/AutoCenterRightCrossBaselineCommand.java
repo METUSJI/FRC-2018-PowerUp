@@ -1,13 +1,21 @@
 package org.usfirst.frc.team151.robot.commands;
 
+import org.usfirst.frc.team151.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutoCenterCrossBaselineCommand extends CommandGroup {
+public class AutoCenterRightCrossBaselineCommand extends CommandGroup {
 
-    public AutoCenterCrossBaselineCommand() {
+    public AutoCenterRightCrossBaselineCommand() {
+    	addSequential(new DriveStraightPIDCommand(60, Robot.kPd, Robot.kId, Robot.KDd));
+    	addSequential(new AutoTurnPIDCommand(90, Robot.kPt, Robot.kIt, Robot.kDt));
+    	addSequential(new DriveStraightPIDCommand(106, Robot.kPt, Robot.kIt, Robot.kDt));
+    	addSequential(new AutoTurnPIDCommand(-90, Robot.kPt, Robot.kIt, Robot.kDt));
+    	addSequential(new DriveStraightPIDCommand(65, Robot.kPt, Robot.kIt, Robot.kDt));
+    	
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

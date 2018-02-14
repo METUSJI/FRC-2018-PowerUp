@@ -6,20 +6,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
- *
  */
-public class AutoCenterSwitchCommand extends CommandGroup {
+public class AutoCenterLeftCrossBaselineCommand extends CommandGroup {
 
-    public AutoCenterSwitchCommand() {
-    	addSequential(new DriveStraightPIDCommand(35, Robot.kPd, Robot.kId, Robot.KDd));
+    public AutoCenterLeftCrossBaselineCommand() {
+    	addSequential(new DriveStraightPIDCommand(60, Robot.kPd, Robot.kId, Robot.KDd));
     	addSequential(new AutoTurnPIDCommand(-90, Robot.kPt, Robot.kIt, Robot.kDt));
-    	addSequential(new DriveStraightPIDCommand(70, Robot.kPd, Robot.kId, Robot.KDd));
+    	addSequential(new DriveStraightPIDCommand(154, Robot.kPt, Robot.kIt, Robot.kDt));
     	addSequential(new AutoTurnPIDCommand(90, Robot.kPt, Robot.kIt, Robot.kDt));
-    	addSequential(new DriveStraightPIDCommand(40, Robot.kPd, Robot.kId, Robot.KDd));
-    	//addSequential(new )~~~~ Which command is needed to release the cube? Is it the OpenClawCommand or is it the ReleaseCubeCommand??
+    	addSequential(new DriveStraightPIDCommand(65, Robot.kPt, Robot.kIt, Robot.kDt));
     	
-    	
-    
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
