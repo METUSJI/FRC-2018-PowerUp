@@ -1,10 +1,8 @@
 
 package org.usfirst.frc.team151.robot;
 
-import org.usfirst.frc.team151.robot.utils.*;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -15,7 +13,6 @@ import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
-import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
@@ -62,6 +59,22 @@ public class Robot extends IterativeRobot {
 	public static double elapsedTime = 0;
 	public static boolean autoReleasePrereqOn = false;
 	
+	Preferences prefs;
+	public static int whichRobot;
+	
+	public enum WhichRobot {
+		DEFAULT, DA_VINCI, NEWTON, TESLA;
+		
+		public static WhichRobot convertIntToRobot(int robotInt) {
+			for (WhichRobot robot : WhichRobot.values()) {
+				if (robot.ordinal() == robotInt) {
+					return robot;
+				}
+			}
+			return null;
+		}
+	}
+	
 	Command autonomousCommand;
 	SendableChooser<Command> positionChooser = new SendableChooser<>();
 	SendableChooser<Command> strategyChooser = new SendableChooser<>();
@@ -73,7 +86,7 @@ public class Robot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {	
+	public void robotInit() {
 		driverOI = new DriverOI(0);
 		coDriverOI = new CoDriverOI(1);
 		
@@ -92,8 +105,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("AutoTurn", new AutoTurnPIDCommand(45, 0, 0, 0));
 		SmartDashboard.putData("Switch", new EnableElevatorPIDCommand());
 		
-//		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
+		prefs = Preferences.getInstance();
+		whichRobot = prefs.getInt("whichRobot", 0);
 		
+		SmartDashboard.putString("RoboRio Name", WhichRobot.convertIntToRobot(whichRobot).toString());
+		
+//		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
 		
 		//TUNE PID CONSTANTS WHEN USING PID COMMAND fa
 //		autonomousCommand = new TestDriveCommand(); //d constant was 0.002
@@ -131,6 +148,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 
+		System.out.println("whichRobot: " + whichRobot);
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -165,7 +183,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
-			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+			if(RobotMap.hasGyro)
+				Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		}
 		autoOn = false;
 	}

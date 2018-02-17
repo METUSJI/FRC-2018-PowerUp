@@ -14,56 +14,62 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon; 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TankDriveSubsystem extends Subsystem {
-	
+
 	private SpeedController leftRear = null;
 	private SpeedController leftFront = null; 
 	private SpeedController rightRear = null;
 	private SpeedController rightFront = null;
-	
+
 	private SpeedControllerGroup right = null;
 	private SpeedControllerGroup left = null;
-	
+
 	public Encoder leftEnc = null;
 	public Encoder rightEnc = null;
-	
+
 	public ADXRS450_Gyro gyro = null;
-	
+
 	private DifferentialDrive drive = null;
-	
+
 	public TankDriveSubsystem() {
 		leftRear = new Talon(RobotMap.DRIVE_LEFT_REAR);
 		leftFront = new Talon(RobotMap.DRIVE_LEFT_FRONT);
 		rightRear = new Talon(RobotMap.DRIVE_RIGHT_REAR);
 		rightFront = new Talon(RobotMap.DRIVE_RIGHT_FRONT); 
-	
+
 		right = new SpeedControllerGroup(rightFront, rightRear);
 		left = new SpeedControllerGroup(leftFront, leftRear);
-		
+
 		right.setInverted(true);
 		left.setInverted(true);
-		
+
 		drive = new DifferentialDrive(left, right);
-		
+
 		leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, 
 				RobotMap.LEFT_DRIVE_ENCODER_B, false, EncodingType.k4X);
 		rightEnc = new Encoder(RobotMap.RIGHT_DRIVE_ENCODER_A, 
 				RobotMap.RIGHT_DRIVE_ENCODER_B, false, EncodingType.k4X);
-		
+
 		leftEnc.setDistancePerPulse(Robot.DISTANCE_PER_PULSE);
 		rightEnc.setDistancePerPulse(Robot.DISTANCE_PER_PULSE);
-		
+
 		leftEnc.reset();
 		rightEnc.reset();
-		
+
 		rightEnc.setReverseDirection(true);
-		
-		gyro = new ADXRS450_Gyro();
-		gyro.calibrate();
-		gyro.reset();
+
+		try {
+			gyro = new ADXRS450_Gyro();
+			gyro.calibrate();
+			gyro.reset();
+		} catch(NullPointerException e) {
+			RobotMap.hasGyro = false;
+			SmartDashboard.putString("Gyro Status", "Gyro MISSING");
+		}
 	}
-	
+
 	/**
 	 * Set the default command to DriveWithJoysticksCommand so that the drive train can always be driven with joysticks
 	 */
@@ -72,7 +78,7 @@ public class TankDriveSubsystem extends Subsystem {
 		// TODO Auto-generated method stub
 		setDefaultCommand(new DriveWithJoysticksCommand());
 	}
-	
+
 	/**
 	 * Drive the robot based on user input
 	 * @param oi The OI (operator interface) the driving is based on
@@ -80,30 +86,30 @@ public class TankDriveSubsystem extends Subsystem {
 	public void drive(OI oi) {
 		double left = deadzone(oi, RobotMap.LEFT_JOYSTICK_VERTICAL_AXIS);
 		double right = deadzone(oi, RobotMap.RIGHT_JOYSTICK_VERTICAL_AXIS);
-		
+
 		drive(left, right);
 	}
-	
+
 	public void driveArcade(OI oi) {
 		double throttle = deadzone(oi, RobotMap.LEFT_JOYSTICK_VERTICAL_AXIS);
 		double turn = deadzone(oi, RobotMap.RIGHT_JOYSTICK_LATERAL_AXIS);
-		
+
 		if(throttle != 0)
 			turn = 0.25 * (turn * Math.abs(throttle)); // set to 0.25 to reduce super fast turning
-		 
+
 		double initLeft = throttle - turn;
 		double initRight = throttle + turn;
-		
+
 		double left = initLeft + skim(initRight);
 		double right = initRight + skim(initLeft);
-		
+
 		drive(0.75 * left, 0.75 * right);
-		
-//		System.out.println(Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
-//		System.out.println("Current left motor output: " + 0.3 * left);
-//		System.out.println("Current right motor output: " + 0.3 * right);
+
+		//		System.out.println(Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+		//		System.out.println("Current left motor output: " + 0.3 * left);
+		//		System.out.println("Current right motor output: " + 0.3 * right);
 	}
-	
+
 	private double skim(double speed) {
 		//Maximum PWM range is -1<=x<=1, so make up for that
 		if(speed > 1.0) {
@@ -113,7 +119,7 @@ public class TankDriveSubsystem extends Subsystem {
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Drive based on two distinct motor power percentages
 	 * @param left The percentage of full power from <code>-1</code> to <code>1</code> for the left side of the drive train
@@ -122,7 +128,7 @@ public class TankDriveSubsystem extends Subsystem {
 	public void drive(double left, double right) {
 		drive.tankDrive(left, right);
 	}
-	
+
 	/**
 	 * A deadzone to prevent random movement when no user is interacting with the OI
 	 * @param oi The OI that controls the drive train
@@ -137,7 +143,7 @@ public class TankDriveSubsystem extends Subsystem {
 			return 0;
 		}
 	}
-	
+
 	/**
 	 * Return the linear distance travelled by the robot.
 	 * @return The linear distance travelled by the robot by averaging the distance recorded by the two encoders.
@@ -145,29 +151,29 @@ public class TankDriveSubsystem extends Subsystem {
 	public double getDistanceTraveled() {
 		return leftEnc.getDistance();
 	}
-	
+
 	/**
 	 * The angle of the robot.
 	 * @return The angle of the robot based on the gyro.
 	 */
-//	public double getAngle() {
-//		return gyro.getAngle();
-//	}
-//	
+	//	public double getAngle() {
+	//		return gyro.getAngle();
+	//	}
+	//	
 	public void resetEncoders() {
 		leftEnc.reset(); 
 		rightEnc.reset();
 	}
-//	
-//	public void resetGyro() {
-//		gyro.reset();
-//	}
-//	
-//	public void resetAll() {
-//		leftEnc.reset();
-//		gyro.reset();
-//	}
-	
+	//	
+	//	public void resetGyro() {
+	//		gyro.reset();
+	//	}
+	//	
+	//	public void resetAll() {
+	//		leftEnc.reset();
+	//		gyro.reset();
+	//	}
+
 	public double getEncoder() {
 		return (leftEnc.getDistance() + rightEnc.getDistance()) / 2;
 	}
