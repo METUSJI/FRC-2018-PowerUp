@@ -17,7 +17,7 @@ public class FieldData {
 	}
 	
 	public enum Direction {
-		lEFT ('L'), RIGHT ('R');
+		LEFT ('L'), RIGHT ('R');
 		private final char direction;
 		Direction (char direction) {
 			this.direction = direction;	

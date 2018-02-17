@@ -2,12 +2,14 @@ package org.usfirst.frc.team151.robot;
 
 
 import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
+import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
 //import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
 import org.usfirst.frc.team151.robot.commands.DeltaSetpointElevatorCommand;
 //import org.usfirst.frc.team151.robot.commands.OpenClawCommand; 
 import org.usfirst.frc.team151.robot.commands.DisableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.ElevatorPIDToManualCommandGroup;
 import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
+import org.usfirst.frc.team151.robot.commands.OpenClawCommand;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -47,7 +49,9 @@ public class CoDriverOI extends OI {
 		leftJoystick.whenPressed(new ElevatorPIDToManualCommandGroup());
 		rightJoystick.whenPressed(new EnableElevatorPIDCommand());
 						
-//		leftBumper.whenPressed(new OpenClawCommand());
-//		rightBumper.whenPressed(new CloseClawCommand());
+		leftBumper.whenPressed(new OpenClawCommand());
+		rightBumper.whenPressed(new CloseClawCommand());
+		
+		
 	}
 }

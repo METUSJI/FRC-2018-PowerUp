@@ -10,7 +10,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoCenterLeftCrossBaselineCommand extends CommandGroup {
 
     public AutoCenterLeftCrossBaselineCommand() {
-    	addSequential(new DriveStraightPIDCommand(60, Robot.kPd, Robot.kId, Robot.KDd));
+    	addSequential(new CloseClawCommand());
+    	addSequential(new DriveStraightPIDCommand(60, Robot.kPd, Robot.kId, Robot.kDd));
     	addSequential(new AutoTurnPIDCommand(-90, Robot.kPt, Robot.kIt, Robot.kDt));
     	addSequential(new DriveStraightPIDCommand(154, Robot.kPt, Robot.kIt, Robot.kDt));
     	addSequential(new AutoTurnPIDCommand(90, Robot.kPt, Robot.kIt, Robot.kDt));

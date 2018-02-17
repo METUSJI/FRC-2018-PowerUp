@@ -14,7 +14,7 @@ public class AutoTurnPIDCommand extends PIDCommand {
 	double currentOutput = 0;
 	 
 	double MINIMUM_OUTPUT = -0.55;
-	double MAXIMUM_OUTPUT = 0.55; 
+	double MAXIMUM_OUTPUT = 0.55;
 	
 	public AutoTurnPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
