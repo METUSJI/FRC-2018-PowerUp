@@ -11,7 +11,7 @@ public class AutoEdgeCrossBaselineCommand extends CommandGroup {
 
     public AutoEdgeCrossBaselineCommand() {
         addSequential(new CloseClawCommand());
-    	addSequential(new DriveStraightPIDCommand(101.5, Robot.kPd, Robot.kId, Robot.kDd));
+    	addSequential(new DriveStraightPIDCommand(90, Robot.kPd, Robot.kId, Robot.kDd));
     	
     }
 }

@@ -11,6 +11,9 @@ public class AutoEdgeSameScaleCommand extends CommandGroup {
 
     public AutoEdgeSameScaleCommand(int left) {
     	addSequential(new CloseClawCommand());
-    	addSequential(new DriveStraightPIDCommand(275, Robot.kPd, Robot.kId, Robot.kDd));
+    	addParallel(new ChangeElevatorSetpointCommand(65));
+    	addSequential(new DriveStraightPIDCommand(286, Robot.kPd, Robot.kId, Robot.kDd));
+    	addSequential(new AutoTurnPIDCommand(left * 90, Robot.kPt, Robot.kIt, Robot.kDt));
+    	addSequential(new DriveStraightPIDCommand(286, Robot.kPd, Robot.kId, Robot.kDd));
     }
 }

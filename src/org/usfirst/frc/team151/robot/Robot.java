@@ -17,8 +17,10 @@ import org.usfirst.frc.team151.robot.commands.AutoEdgeOppositeScaleCommand;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeSameScaleCommand;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeSwitchCommand;
 import org.usfirst.frc.team151.robot.commands.AutoSameScaleOnlyCommand;
+import org.usfirst.frc.team151.robot.commands.AutoTimedDriveCommand;
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
+import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
@@ -115,6 +117,8 @@ public class Robot extends IterativeRobot {
 		strategyChooser.addDefault("Scale", new EnableElevatorPIDCommand());
 		strategyChooser.addDefault("Cross", new DriveStraightPIDCommand(0, 0, 0, 0));
 		strategyChooser.addDefault("Skewed Switch", new AutoSameScaleOnlyCommand());
+		strategyChooser.addObject("Brick", new CloseClawCommand());
+		strategyChooser.addObject("Timed Drive", new AutoTimedDriveCommand(2.5));
 		
 		SmartDashboard.putData("Position Chooser", positionChooser);
 		SmartDashboard.putData("Strategy Chooser", strategyChooser);
@@ -183,9 +187,15 @@ public class Robot extends IterativeRobot {
 		else if (positionChooser.getSelected().equals("Right") && strategyChooser.getSelected().equals("Cross")) {
 			autonomousCommand = new AutoEdgeCrossBaselineCommand();
 		}
-		
-		autonomousCommand = new ChangeElevatorSetpointCommand(12);
-		
+		else if (positionChooser.getSelected().equals("Center") && strategyChooser.getSelected().equals("Skewed Switch")) {
+			autonomousCommand = new AutoSameScaleOnlyCommand();
+		}
+		else if (strategyChooser.getSelected().equals("Brick")) {
+			autonomousCommand = new CloseClawCommand();
+		}
+		else if (strategyChooser.getSelected().equals("Timed Drive")) {
+			autonomousCommand = new AutoTimedDriveCommand(2.5);
+		}
 		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
 	}
 

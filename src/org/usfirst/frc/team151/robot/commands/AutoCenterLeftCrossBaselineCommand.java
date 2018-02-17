@@ -11,11 +11,11 @@ public class AutoCenterLeftCrossBaselineCommand extends CommandGroup {
 
     public AutoCenterLeftCrossBaselineCommand() {
     	addSequential(new CloseClawCommand());
-    	addSequential(new DriveStraightPIDCommand(60, Robot.kPd, Robot.kId, Robot.kDd));
+    	addSequential(new DriveStraightPIDCommand(12, Robot.kPd, Robot.kId, Robot.kDd));
     	addSequential(new AutoTurnPIDCommand(-90, Robot.kPt, Robot.kIt, Robot.kDt));
-    	addSequential(new DriveStraightPIDCommand(154, Robot.kPt, Robot.kIt, Robot.kDt));
+    	addSequential(new DriveStraightPIDCommand(132, Robot.kPt, Robot.kIt, Robot.kDt));
     	addSequential(new AutoTurnPIDCommand(90, Robot.kPt, Robot.kIt, Robot.kDt));
-    	addSequential(new DriveStraightPIDCommand(65, Robot.kPt, Robot.kIt, Robot.kDt));
+    	addSequential(new DriveStraightPIDCommand(80, Robot.kPt, Robot.kIt, Robot.kDt));
     	
         // Add Commands here:
         // e.g. addSequential(new Command1());
