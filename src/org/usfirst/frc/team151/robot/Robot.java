@@ -111,13 +111,15 @@ public class Robot extends IterativeRobot {
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		positionChooser.addObject("Left", 1); // I have no idea what the command or number is supposed to be here - Andrew
-		positionChooser.addDefault("Center", 2);
+		positionChooser.addDefault("Middle", 2);
 		positionChooser.addObject("Right", 3);
 		
 		strategyChooser.addDefault("Brick", "brick");
 		strategyChooser.addObject("Switch", "switch");
 		strategyChooser.addObject("Scale", "scale");
 		strategyChooser.addObject("Pass Auto Line", "pass");
+		strategyChooser.addObject("Skewed Switch", "skewed");
+		strategyChooser.addObject("Timed Drive", "timed drive");
 		
 		SmartDashboard.putData("Position Chooser", positionChooser);
 		SmartDashboard.putData("Strategy Chooser", strategyChooser);
@@ -142,7 +144,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = new TestDriveCommand();
 			}
 		}
-		else if (positionChooser.getSelected().equals("Middle") && strategyChooser.getSelected().equals("Cross")) {
+		else if (positionChooser.getSelected().equals("Middle") && strategyChooser.getSelected().equals("Pass Auto Line")) {
 			autonomousCommand = new AutoCenterLeftCrossBaselineCommand();
 		}
 		else if (positionChooser.getSelected().equals("Left") && strategyChooser.getSelected().equals("Scale")) {
@@ -161,7 +163,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = new AutoEdgeCrossBaselineCommand();
 			}
 		}
-		else if (positionChooser.getSelected().equals("Left") && strategyChooser.getSelected().equals("Cross")) {
+		else if (positionChooser.getSelected().equals("Left") && strategyChooser.getSelected().equals("Pass Auto Line")) {
 			autonomousCommand = new AutoEdgeCrossBaselineCommand();
 		}
 		else if (positionChooser.getSelected().equals("Right") && strategyChooser.getSelected().equals("Scale")) {
@@ -183,7 +185,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = new AutoEdgeCrossBaselineCommand();
 			}
 		}
-		else if (positionChooser.getSelected().equals("Right") && strategyChooser.getSelected().equals("Cross")) {
+		else if (positionChooser.getSelected().equals("Right") && strategyChooser.getSelected().equals("Pass Auto Line")) {
 			autonomousCommand = new AutoEdgeCrossBaselineCommand();
 		}
 		else if (positionChooser.getSelected().equals("Center") && strategyChooser.getSelected().equals("Skewed Switch")) {
