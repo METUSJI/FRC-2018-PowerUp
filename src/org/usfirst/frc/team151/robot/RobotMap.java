@@ -23,16 +23,22 @@ public class RobotMap {
 	public static final int CUBE_RIGHT_WHEEL = 5;
 	
 	//DIO PORTS
-	public static final int LEFT_DRIVE_ENCODER_A = 0;
-	public static final int LEFT_DRIVE_ENCODER_B = 1;
-	public static final int RIGHT_DRIVE_ENCODER_A = 2;
-	public static final int RIGHT_DRIVE_ENCODER_B = 3;
+	public static final int FORWARD_LED = 0;
+	public static final int ELEVATOR_BRAKE = 1;
+	public static final int LEFT_DRIVE_ENCODER_A = 2;
+	public static final int LEFT_DRIVE_ENCODER_B = 3;
+	public static final int RIGHT_DRIVE_ENCODER_A = 4;
+	public static final int RIGHT_DRIVE_ENCODER_B = 5;
+	public static final int LOWER_ELEVATOR_SWITCH = 6;
+	public static final int UPPER_ELEVATOR_SWITCH = 7;
 	
 	//SOLENOID CHANNEL
 	public static final int RIGHT_CLAW_FORWARD_CHANNEL = 5;
 	public static final int RIGHT_CLAW_REVERSE_CHANNEL = 4;
 	public static final int LEFT_CLAW_FORWARD_CHANNEL = 1;
 	public static final int LEFT_CLAW_REVERSE_CHANNEL = 2;
+	public static final int BRAKE_FORWARD_CHANNEL = 7;
+	public static final int BRAKE_REVERSE_CHANNEL = 8;
 	
 	// ANALOG INPUT/OUTPUT
 	public static final int ELEVATOR_ANALOG_INPUT = 0;

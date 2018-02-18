@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team151.robot.commands.AutoCenterLeftCrossBaselineCommand;
-import org.usfirst.frc.team151.robot.commands.AutoCenterRightCrossBaselineCommand;
 import org.usfirst.frc.team151.robot.commands.AutoCenterSwitchCommand;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeCrossBaselineCommand;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeOppositeScaleCommand;
@@ -19,9 +18,7 @@ import org.usfirst.frc.team151.robot.commands.AutoEdgeSwitchCommand;
 import org.usfirst.frc.team151.robot.commands.AutoSameScaleOnlyCommand;
 import org.usfirst.frc.team151.robot.commands.AutoTimedDriveCommand;
 import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
-import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
 import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
-import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
@@ -46,6 +43,8 @@ public class Robot extends IterativeRobot {
 	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
 	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
 
+	public static int fieldPosition = 0;
+	public static String strategy = null;
 	/**
 	 * The distance per pulse on the encoder, based on the wheel diameter divided by 1440 pulses per revolution
 	 */
@@ -91,8 +90,8 @@ public class Robot extends IterativeRobot {
 	}
 	
 	Command autonomousCommand;
-	SendableChooser<Command> positionChooser = new SendableChooser<>();
-	SendableChooser<Command> strategyChooser = new SendableChooser<>();
+	SendableChooser<Integer> positionChooser = new SendableChooser<Integer>();
+	SendableChooser<String> strategyChooser = new SendableChooser<String>();
 	
 	public static boolean autoOn = false;
 	public static boolean elevatorPIDControl = false;
@@ -109,16 +108,14 @@ public class Robot extends IterativeRobot {
 		
 //		chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		positionChooser.addDefault("Left Autonomous", new AutoTurnPIDCommand(45, 0, 0, 0)); // I have no idea what the command or number is supposed to be here - Andrew
-		positionChooser.addObject("Right Autonomous", new AutoTurnPIDCommand(-45, 0, 0, 0));
-		positionChooser.addObject("Middle", new DriveStraightPIDCommand(0, 0, 0, 0));
+		positionChooser.addObject("Left", 1); // I have no idea what the command or number is supposed to be here - Andrew
+		positionChooser.addDefault("Center", 2);
+		positionChooser.addObject("Right", 3);
 		
-		strategyChooser.addDefault("Switch", new EnableElevatorPIDCommand());
-		strategyChooser.addDefault("Scale", new EnableElevatorPIDCommand());
-		strategyChooser.addDefault("Cross", new DriveStraightPIDCommand(0, 0, 0, 0));
-		strategyChooser.addDefault("Skewed Switch", new AutoSameScaleOnlyCommand());
-		strategyChooser.addObject("Brick", new CloseClawCommand());
-		strategyChooser.addObject("Timed Drive", new AutoTimedDriveCommand(2.5));
+		strategyChooser.addDefault("Brick", "brick");
+		strategyChooser.addDefault("Switch", "switch");
+		strategyChooser.addDefault("Scale", "scale");
+		strategyChooser.addDefault("Pass Auto Line", "pass");
 		
 		SmartDashboard.putData("Position Chooser", positionChooser);
 		SmartDashboard.putData("Strategy Chooser", strategyChooser);
@@ -199,6 +196,10 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to shuffleboard
 	}
 
+	public Command chooseAutonomousCommand(int position, String strategy) {
+		return null;
+	}
+	
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
