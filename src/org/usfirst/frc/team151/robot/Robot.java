@@ -113,9 +113,9 @@ public class Robot extends IterativeRobot {
 		positionChooser.addObject("Right", 3);
 		
 		strategyChooser.addDefault("Brick", "brick");
-		strategyChooser.addDefault("Switch", "switch");
-		strategyChooser.addDefault("Scale", "scale");
-		strategyChooser.addDefault("Pass Auto Line", "pass");
+		strategyChooser.addObject("Switch", "switch");
+		strategyChooser.addObject("Scale", "scale");
+		strategyChooser.addObject("Pass Auto Line", "pass");
 		
 		SmartDashboard.putData("Position Chooser", positionChooser);
 		SmartDashboard.putData("Strategy Chooser", strategyChooser);
