@@ -23,6 +23,7 @@ import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
+import org.usfirst.frc.team151.robot.subsystems.ElevatorPistonSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 import org.usfirst.frc.team151.robot.utils.FieldData;
@@ -44,6 +45,7 @@ public class Robot extends IterativeRobot {
 	public static final ElevatorPIDSubsystem ELEVATOR_PID_SUBSYSTEM = new ElevatorPIDSubsystem();
 	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
 	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
+	public static final ElevatorPistonSubsystem ELEVATOR_PISTON_SUBSYSTEM = new ElevatorPistonSubsystem();
 
 	public static int fieldPosition = 0;
 	public static String strategy = null;
