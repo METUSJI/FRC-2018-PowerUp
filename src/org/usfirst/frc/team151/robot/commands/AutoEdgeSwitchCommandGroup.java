@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoEdgeSwitchCommand extends CommandGroup {
+public class AutoEdgeSwitchCommandGroup extends CommandGroup {
 
-    public AutoEdgeSwitchCommand(int left) {
+    public AutoEdgeSwitchCommandGroup(int left) {
     	addSequential(new CloseClawCommand());
     	addParallel(new ChangeElevatorSetpointCommand(16));
     	addSequential(new DriveStraightPIDCommand(130, Robot.kPd, Robot.kId, Robot.kDd));

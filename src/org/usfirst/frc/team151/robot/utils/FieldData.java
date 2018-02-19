@@ -2,10 +2,10 @@ package org.usfirst.frc.team151.robot.utils;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
-public class FieldData {
-	String gameData = "";
+public abstract class FieldData {
+	static String gameData = "";
 	
-	public enum FieldThings {
+	public static enum FieldThings {
 		SWITCH (0), SCALE (1);
 		private final int index;
 		FieldThings (int index) {
@@ -16,7 +16,7 @@ public class FieldData {
 		}
 	}
 	
-	public enum Direction {
+	public static enum Direction {
 		LEFT ('L'), RIGHT ('R');
 		private final char direction;
 		Direction (char direction) {
@@ -27,7 +27,7 @@ public class FieldData {
 		}
 	}
 	
-	private boolean isDataValid() {
+	private static boolean isDataValid() {
 		if (gameData.equals("")) {
 			gameData = DriverStation.getInstance().getGameSpecificMessage();
 			
@@ -42,7 +42,7 @@ public class FieldData {
 	 * To call this method in another class, import this class and call:
 	 * FieldData.checkFieldPosition(FieldThings.SCALE/SWITCH, Direction.LEFT/RIGHT) 
 	 */
-	public boolean checkFieldPosition(FieldThings ft, Direction d) {
+	public static boolean checkFieldPosition(FieldThings ft, Direction d) {
 		isDataValid();
 		return gameData.charAt(ft.index()) == d.direction();
 	}

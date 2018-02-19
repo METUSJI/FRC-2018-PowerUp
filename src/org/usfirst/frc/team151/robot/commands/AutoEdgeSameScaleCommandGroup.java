@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoEdgeSameScaleCommand extends CommandGroup {
+public class AutoEdgeSameScaleCommandGroup extends CommandGroup {
 
-    public AutoEdgeSameScaleCommand(int left) {
+    public AutoEdgeSameScaleCommandGroup(int left) {
     	addSequential(new CloseClawCommand());
     	addParallel(new ChangeElevatorSetpointCommand(65));
     	addSequential(new DriveStraightPIDCommand(286, Robot.kPd, Robot.kId, Robot.kDd));

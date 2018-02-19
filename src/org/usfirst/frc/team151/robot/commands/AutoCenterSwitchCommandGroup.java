@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  *
  */
-public class AutoCenterSwitchCommand extends CommandGroup {
+public class AutoCenterSwitchCommandGroup extends CommandGroup {
 
-    public AutoCenterSwitchCommand(int left) {
+    public AutoCenterSwitchCommandGroup(int left) {
     	addSequential(new CloseClawCommand());
     	addSequential(new DriveStraightPIDCommand(12, Robot.kPd, Robot.kId, Robot.kDd));
     	addSequential(new AutoTurnPIDCommand(left * -90, Robot.kPt, Robot.kIt, Robot.kDt));

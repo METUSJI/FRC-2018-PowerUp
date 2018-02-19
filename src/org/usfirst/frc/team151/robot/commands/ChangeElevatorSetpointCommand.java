@@ -14,14 +14,12 @@ public class ChangeElevatorSetpointCommand extends Command {
 	
 	public ChangeElevatorSetpointCommand(double setpoint) {
 		this.setpoint = setpoint;
-		System.out.println("ChangeElevatorSetpointCommand initialized, setpoint is " + setpoint);
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		System.out.println("change el command initalize method");
 	}
 
 	// Called repeatedly when this Command is scheduled to run

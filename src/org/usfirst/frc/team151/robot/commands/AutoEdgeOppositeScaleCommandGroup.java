@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoEdgeOppositeScaleCommand extends CommandGroup {
+public class AutoEdgeOppositeScaleCommandGroup extends CommandGroup {
 
-    public AutoEdgeOppositeScaleCommand(int left) {
+    public AutoEdgeOppositeScaleCommandGroup(int left) {
     	addSequential(new CloseClawCommand());
     	addSequential(new DriveStraightPIDCommand(190.5, Robot.kPd, Robot.kId, Robot.kDd));
     	addSequential(new AutoTurnPIDCommand(left * -90, Robot.kPt, Robot.kIt, Robot.kDt));

@@ -9,46 +9,41 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.interfaces.Potentiometer;
 
 public class ElevatorPIDSubsystem extends PIDSubsystem {
-	private static final double TOTAL_HEIGHT = 30.5;
-	private static final double EMPIRICAL_SCALE = 1.0764262648;
-	private static final double OFFSET = -3.5;
+	private static final double TOTAL_HEIGHT = 28.0;
+	private static final double EMPIRICAL_SCALE = 1.13765642776;
+	private static final double OFFSET = -1.19;
 
-	DoubleSolenoid brake = new DoubleSolenoid(RobotMap.BRAKE_FORWARD_CHANNEL, RobotMap.BRAKE_REVERSE_CHANNEL);
+//	DoubleSolenoid brake = new DoubleSolenoid(RobotMap.BRAKE_FORWARD_CHANNEL, RobotMap.BRAKE_REVERSE_CHANNEL);
 	private SpeedController elevator = null;
-	Potentiometer height = new AnalogPotentiometer(RobotMap.ELEVATOR_ANALOG_INPUT, TOTAL_HEIGHT);
+	Potentiometer height = new AnalogPotentiometer(RobotMap.ELEVATOR_ANALOG_INPUT);
 	private DigitalInput lowerSwitch = null;
 	private DigitalInput upperSwitch = null;
 	private double lastManualHeight = 0;
-	private boolean print = true;
 
 	public ElevatorPIDSubsystem() {
 		super(Robot.kPe, Robot.kIe, Robot.kDe);
 		lowerSwitch = new DigitalInput(RobotMap.LOWER_ELEVATOR_SWITCH);
 		upperSwitch = new DigitalInput(RobotMap.UPPER_ELEVATOR_SWITCH);
 		setAbsoluteTolerance(0.5);
-		elevator = new VictorSP(RobotMap.ELEVATOR_MOTOR);
+		elevator = new Talon(RobotMap.ELEVATOR_MOTOR);
 		disable();
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		// TODO Auto-generated method stub
-		double height = getHeight();
-		if(print)
+		if(Robot.elevatorPrint)
 			System.out.println("Height: " + getHeight() + getSetpoint());
 		return getHeight();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
-		// TODO Auto-generated method stub
-		//		System.out.println("Height in usePIDOutput: " + getHeight() + "\t Current setpoint: " + getSetpoint());
-		//		System.out.println();
 		if(output < 0)
 			output = 0;
 		/*
@@ -84,7 +79,7 @@ public class ElevatorPIDSubsystem extends PIDSubsystem {
 			setSol = Value.kReverse;
 		}
 
-		brake.set(setSol);
+//		brake.set(setSol);
 		elevator.set(output);
 	}
 
@@ -106,7 +101,7 @@ public class ElevatorPIDSubsystem extends PIDSubsystem {
 	public void manualElevator(OI oi) {
 		double speed = -oi.getJoystick().getRawAxis(RobotMap.RIGHT_JOYSTICK_VERTICAL_AXIS);
 		System.out.println("Height (manual): " + Robot.ELEVATOR_PID_SUBSYSTEM.getHeight());
-		if(print)
+		if(Robot.elevatorPrint)
 			System.out.println("Height (manual): " + Robot.ELEVATOR_PID_SUBSYSTEM.getHeight());
 
 		/*

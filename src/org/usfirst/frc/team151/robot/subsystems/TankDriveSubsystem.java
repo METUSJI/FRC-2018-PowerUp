@@ -33,6 +33,9 @@ public class TankDriveSubsystem extends Subsystem {
 
 	private DifferentialDrive drive = null;
 
+	private double turnGain = 0.25;
+	private double straightGain = 0.75;
+
 	public TankDriveSubsystem() {
 		leftRear = new Talon(RobotMap.DRIVE_LEFT_REAR);
 		leftFront = new Talon(RobotMap.DRIVE_LEFT_FRONT);
@@ -95,19 +98,21 @@ public class TankDriveSubsystem extends Subsystem {
 		double turn = deadzone(oi, RobotMap.RIGHT_JOYSTICK_LATERAL_AXIS);
 
 		if(throttle != 0)
-			turn = 0.25 * (turn * Math.abs(throttle)); // set to 0.25 to reduce super fast turning
+			turn = turnGain * (turn * Math.abs(throttle));
 
 		double initLeft = throttle - turn;
 		double initRight = throttle + turn;
 
-		double left = initLeft + skim(initRight);
-		double right = initRight + skim(initLeft);
+		double left = straightGain * (initLeft + skim(initRight));
+		double right = straightGain * (initRight + skim(initLeft));
 
-		drive(0.75 * left, 0.75 * right);
+		drive(left, right);
 
-		//		System.out.println(Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
-		//		System.out.println("Current left motor output: " + 0.3 * left);
-		//		System.out.println("Current right motor output: " + 0.3 * right);
+		if(Robot.drivePrint) {
+			System.out.println("Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+			System.out.println("Left speed controllers' output: " + left);
+			System.out.println("Right speed controllers' output: " + right);
+		}
 	}
 
 	private double skim(double speed) {
@@ -164,15 +169,16 @@ public class TankDriveSubsystem extends Subsystem {
 		leftEnc.reset(); 
 		rightEnc.reset();
 	}
-	//	
-	//	public void resetGyro() {
-	//		gyro.reset();
-	//	}
-	//	
-	//	public void resetAll() {
-	//		leftEnc.reset();
-	//		gyro.reset();
-	//	}
+
+	public void resetGyro() {
+		gyro.reset();
+	}
+
+	public void resetAll() {
+		leftEnc.reset();
+		rightEnc.reset();
+		gyro.reset();
+	}
 
 	public double getEncoder() {
 		return (leftEnc.getDistance() + rightEnc.getDistance()) / 2;
