@@ -19,7 +19,7 @@ public class AutoTurnPIDCommand extends PIDCommand {
 	public AutoTurnPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
 		setSetpoint(setpoint);
-		getPIDController().setAbsoluteTolerance(5);
+		getPIDController().setAbsoluteTolerance(2.5);
 		angle = setpoint;
 //		Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 		//Robot.autoOn = true;
@@ -30,7 +30,7 @@ public class AutoTurnPIDCommand extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		if (count % 3 == 0) {  
+		if (count % 1 == 0) {  
 			System.out.println("Current Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 //			SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); 
 		}
@@ -41,7 +41,17 @@ public class AutoTurnPIDCommand extends PIDCommand {
 
 	@Override
 	protected void usePIDOutput(double output) {
-		Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, output); 
+		if (Math.abs(output) > 0.31) {
+			Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, output); 
+		}
+		else {
+			if (output < 0) {
+				Robot.TANK_DRIVE_SUBSYSTEM.drive(0.275, -0.275);
+			}
+			else {
+				Robot.TANK_DRIVE_SUBSYSTEM.drive(-0.275, 0.275);
+			}
+		}
 		currentOutput = output;
 	}
 

@@ -18,6 +18,7 @@ public class TimedSpinCubeWheelsCommand extends TimedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	System.out.println("Starting TimedCubeWheels");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,6 +29,7 @@ public class TimedSpinCubeWheelsCommand extends TimedCommand {
     // Called once after timeout
     protected void end() {
     	Robot.CUBE_CLAW_WHEELS_SUBSYSTEM.spinWheelsAuto(0);
+    	System.out.println("Finished TimedCubeWheels");
     }
 
     // Called when another command which requires one or more of the same

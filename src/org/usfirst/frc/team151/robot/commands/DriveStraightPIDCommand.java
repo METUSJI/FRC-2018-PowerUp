@@ -9,11 +9,15 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class DriveStraightPIDCommand extends PIDCommand {
 
 	private int count;
+	
+	double MINIMUM_OUTPUT = -0.5;
+	double MAXIMUM_OUTPUT = 0.5;
 
 	public DriveStraightPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
 		setSetpoint(setpoint);
-		getPIDController().setAbsoluteTolerance(3);
+		getPIDController().setAbsoluteTolerance(1.5);
+		getPIDController().setOutputRange(MINIMUM_OUTPUT, MAXIMUM_OUTPUT);
 		//Robot.autoOn = true;
 		//LiveWindow.addActuator(moduleType, channel, component);
 	}
