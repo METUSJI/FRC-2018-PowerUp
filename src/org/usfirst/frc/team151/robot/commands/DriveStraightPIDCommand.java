@@ -2,24 +2,20 @@ package org.usfirst.frc.team151.robot.commands;
 
 import org.usfirst.frc.team151.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.PIDCommand;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 public class DriveStraightPIDCommand extends PIDCommand {
 
 	private int count;
 	
-	double MINIMUM_OUTPUT = -0.5;
-	double MAXIMUM_OUTPUT = 0.5;
+	double MINIMUM_OUTPUT = -0.55;
+	double MAXIMUM_OUTPUT = 0.55;
 
 	public DriveStraightPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
 		setSetpoint(setpoint);
 		getPIDController().setAbsoluteTolerance(1.5);
 		getPIDController().setOutputRange(MINIMUM_OUTPUT, MAXIMUM_OUTPUT);
-		//Robot.autoOn = true;
-		//LiveWindow.addActuator(moduleType, channel, component);
 	}
 	
 	@Override
@@ -36,7 +32,6 @@ public class DriveStraightPIDCommand extends PIDCommand {
 			System.out.println("Setpoint: " + getSetpoint());
 		}
 		count++;
-		//Robot.autoOn = true;
 		return Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled();
 	}
 
@@ -56,7 +51,6 @@ public class DriveStraightPIDCommand extends PIDCommand {
 			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
 			Robot.TANK_DRIVE_SUBSYSTEM.resetAll();
 			getPIDController().disable();
-			//Robot.autoOn = false;
 		}
 		return finished;
 	}

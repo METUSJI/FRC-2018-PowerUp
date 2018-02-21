@@ -15,12 +15,7 @@ import org.usfirst.frc.team151.robot.commands.AutoEdgeOppositeScaleCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeSameScaleCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeSwitchCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoMiddleCrossBaselineCommandGroup;
-import org.usfirst.frc.team151.robot.commands.AutoSameSwitchOnlyCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoTimedDriveCommand;
-import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
-import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
-import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
-import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.ElevatorPistonSubsystem;
@@ -38,8 +33,6 @@ import org.usfirst.frc.team151.robot.utils.FieldData.FieldThings;
  * directory.
  */
 public class Robot extends IterativeRobot {
-
-	// julia crying
 
 	public static final TankDriveSubsystem TANK_DRIVE_SUBSYSTEM = new TankDriveSubsystem();
 	public static final ElevatorPIDSubsystem ELEVATOR_PID_SUBSYSTEM = new ElevatorPIDSubsystem();
@@ -116,10 +109,8 @@ public class Robot extends IterativeRobot {
 		driverOI = new DriverOI(0);
 		coDriverOI = new CoDriverOI(1);
 
-		// chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		positionChooser.addObject("Left", "Left"); // I have no idea what the command or number is supposed to be here -
-		// Andrew
+		
+		positionChooser.addObject("Left", "Left"); 
 		positionChooser.addDefault("Middle", "Middle");
 		positionChooser.addObject("Right", "Right");
 
@@ -178,23 +169,30 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		
-		if (strategyChooser.getSelected().equals("Brick")) {
+		FieldData.gameData = "";
+		FieldData.isDataValid();
+		
+		String strategy = strategyChooser.getSelected();
+		String pos = positionChooser.getSelected();
+		
+		
+		if (strategy.equals("Brick")) {
 			autonomousCommand = null;
 		}
-		else if (strategyChooser.getSelected().equals("Timed Drive")) {
+		else if (strategy.equals("Timed Drive")) {
 			autonomousCommand = new AutoTimedDriveCommand(2.5);
 		}
-		else if (strategyChooser.getSelected().equals("Pass Auto Line") && positionChooser.getSelected().equals("Middle")) {
+		else if (strategy.equals("Pass Auto Line") && positionChooser.getSelected().equals("Middle")) {
 			autonomousCommand = new AutoMiddleCrossBaselineCommandGroup();
 		}
-		else if (strategyChooser.getSelected().equals("Pass Auto Line") && 
-				(positionChooser.getSelected().equals("Left") || positionChooser.getSelected().equals("Right"))) {
+		else if (strategy.equals("Pass Auto Line") && (pos.equals("Left") || pos.equals("Right"))) {
 			autonomousCommand = new AutoEdgeCrossBaselineCommandGroup();
 		}
-		else if (positionChooser.getSelected().equals("Middle") && strategyChooser.getSelected().equals("Skewed Switch")) {
-			autonomousCommand = new AutoSameSwitchOnlyCommandGroup();
+		else if (pos.equals("Middle") && strategy.equals("Skewed Switch")) {
+//			autonomousCommand = new AutoSameSwitchOnlyCommandGroup();
+			autonomousCommand = null;
 		}
-		else if (strategyChooser.getSelected().equals("Switch") && positionChooser.getSelected().equals("Right")) {
+		else if (strategy.equals("Switch") && pos.equals("Right")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.RIGHT)) {
 				autonomousCommand = new AutoEdgeSwitchCommandGroup(-1);
 			}
@@ -205,7 +203,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = null;
 			}
 		}
-		else if (strategyChooser.getSelected().equals("Switch") && positionChooser.getSelected().equals("Middle")) {
+		else if (strategy.equals("Switch") && pos.equals("Middle")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.LEFT)) {
 				autonomousCommand = new AutoCenterSwitchCommandGroup(1);
 			}
@@ -216,7 +214,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = null;
 			}
 		}
-		else if (strategyChooser.getSelected().equals("Switch") && positionChooser.getSelected().equals("Left")) {
+		else if (strategy.equals("Switch") && pos.equals("Left")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.LEFT)) {
 				autonomousCommand = new AutoEdgeSwitchCommandGroup(1);
 			}
@@ -227,7 +225,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = null;
 			}
 		}
-		else if (strategyChooser.getSelected().equals("Scale") && positionChooser.getSelected().equals("Left")) {
+		else if (strategy.equals("Scale") && pos.equals("Left")) {
 			if (FieldData.checkFieldPosition(FieldThings.SCALE, Direction.LEFT)) {
 				autonomousCommand = new AutoEdgeSameScaleCommandGroup(1);
 			}
@@ -238,7 +236,7 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = null;
 			}
 		}
-		else if (strategyChooser.getSelected().equals("Scale") && positionChooser.getSelected().equals("Right")) {
+		else if (strategy.equals("Scale") && pos.equals("Right")) {
 			if (FieldData.checkFieldPosition(FieldThings.SCALE, Direction.RIGHT)) {
 				autonomousCommand = new AutoEdgeSameScaleCommandGroup(-1);
 			}
@@ -253,8 +251,8 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = null;
 		}
 
-		System.out.println("Strategy: " + strategyChooser.getSelected());
-		System.out.println("Position: " + positionChooser.getSelected());
+		System.out.println("Strategy: " + strategy);
+		System.out.println("Position: " + pos);
 		
 		if (autonomousCommand != null) {
 			autoOn = true;
@@ -279,10 +277,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
+		
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 			if (RobotMap.hasGyro)
@@ -296,7 +291,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		// TODO uncomment
+		
 		Scheduler.getInstance().run();
 		// System.out.println("Current Angle: " +
 		// Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());

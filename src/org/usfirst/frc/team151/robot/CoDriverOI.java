@@ -3,10 +3,7 @@ package org.usfirst.frc.team151.robot;
 
 import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
 import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
-//import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
 import org.usfirst.frc.team151.robot.commands.DeltaSetpointElevatorCommand;
-//import org.usfirst.frc.team151.robot.commands.OpenClawCommand; 
-import org.usfirst.frc.team151.robot.commands.DisableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.ElevatorPIDToManualCommandGroup;
 import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.OpenClawCommand;

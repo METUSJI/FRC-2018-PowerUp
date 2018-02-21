@@ -1,15 +1,6 @@
 package org.usfirst.frc.team151.robot.subsystems;
 
-import org.usfirst.frc.team151.robot.Robot;
-import org.usfirst.frc.team151.robot.RobotMap;
-import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
-import org.usfirst.frc.team151.robot.commands.NeutralClawCommand;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid; 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**

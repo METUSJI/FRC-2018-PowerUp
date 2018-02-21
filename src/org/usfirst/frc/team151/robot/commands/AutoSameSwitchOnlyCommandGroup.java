@@ -15,10 +15,10 @@ public class AutoSameSwitchOnlyCommandGroup extends CommandGroup {
 //    	addSequential(new DriveStraightPIDCommand(106, Robot.kPd, Robot.kId, Robot.kDd));
 //        addSequential (new OpenClawCommand());
     	addSequential(new ChangeElevatorSetpointCommand(16));
-    	addSequential(new DriveStraightPIDCommand(48, Robot.kPd, Robot.kId, Robot.kDd));
+    	addSequential(new DriveStraightPIDCommand(60, Robot.kPd, Robot.kId, Robot.kDd));
     	addSequential(new AutoTurnPIDCommand(-90, Robot.kPt, Robot.kIt, Robot.kDt));
     	addSequential(new DriveStraightPIDCommand(24, Robot.kPd, Robot.kId, Robot.kDd));
-    	addSequential(new AutoTurnPIDCommand(90, Robot.kPt, Robot.kIt, Robot.kDt));
+    	addSequential(new AutoTurnPIDCommand(-90, Robot.kPt, Robot.kIt, Robot.kDt));
     	addSequential(new DriveStraightPIDCommand(36, Robot.kPd, Robot.kId, Robot.kDd));
     	addParallel(new TimedSpinCubeWheelsCommand(0.5));
     	addSequential(new OpenClawCommand());
