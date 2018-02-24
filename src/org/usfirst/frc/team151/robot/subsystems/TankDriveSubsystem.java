@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon; 
+import edu.wpi.first.wpilibj.Spark; 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -36,10 +36,10 @@ public class TankDriveSubsystem extends Subsystem {
 	private double straightGain = 0.75;
 
 	public TankDriveSubsystem() {
-		leftRear = new Talon(RobotMap.DRIVE_LEFT_REAR);
-		leftFront = new Talon(RobotMap.DRIVE_LEFT_FRONT);
-		rightRear = new Talon(RobotMap.DRIVE_RIGHT_REAR);
-		rightFront = new Talon(RobotMap.DRIVE_RIGHT_FRONT); 
+		leftRear = new Spark(RobotMap.DRIVE_LEFT_REAR);
+		leftFront = new Spark(RobotMap.DRIVE_LEFT_FRONT);
+		rightRear = new Spark(RobotMap.DRIVE_RIGHT_REAR);
+		rightFront = new Spark(RobotMap.DRIVE_RIGHT_FRONT); 
 
 		right = new SpeedControllerGroup(rightFront, rightRear);
 		left = new SpeedControllerGroup(leftFront, leftRear);

@@ -1,5 +1,6 @@
 package org.usfirst.frc.team151.robot.subsystems;
 
+import org.usfirst.frc.team151.robot.RobotMap;
 import org.usfirst.frc.team151.robot.commands.StartElevatorPistonCommand;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -16,7 +17,7 @@ public class ElevatorPistonSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	public ElevatorPistonSubsystem() {
-		sol = new Solenoid(1);
+		sol = new Solenoid(RobotMap.PISTON_RELAY);
 	}
 
     public void initDefaultCommand() {

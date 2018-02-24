@@ -45,6 +45,7 @@ public class RobotMap {
 	
 	//RELAYS
 	public static final int SOLENOID_RELAY = 0;
+	public static final int PISTON_RELAY = 1;
 		
 	//JOYSTICK BUTTONS
 	public static final int X = 3;
