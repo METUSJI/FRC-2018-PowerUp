@@ -22,6 +22,7 @@ public class CubeClawWheelsSubsystem extends Subsystem {
 	public CubeClawWheelsSubsystem( ) {
 		left = new Victor(RobotMap.CUBE_LEFT_WHEEL);
 		right = new Victor(RobotMap.CUBE_RIGHT_WHEEL);
+		right.setInverted(true);
 	}
 	
 

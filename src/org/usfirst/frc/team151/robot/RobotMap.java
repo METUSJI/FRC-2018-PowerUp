@@ -17,7 +17,7 @@ public class RobotMap {
 	public static final int DRIVE_RIGHT_REAR = 3;
 	public static final int DRIVE_RIGHT_FRONT = 2; 
 	
-	public static final int ELEVATOR_MOTOR = 7; //PREVIOUSLY 9, CHECK TO MAKE SURE
+	public static final int ELEVATOR_MOTOR = 6; //PREVIOUSLY 9, CHECK TO MAKE SURE
 	
 	public static final int CUBE_LEFT_WHEEL = 4;
 	public static final int CUBE_RIGHT_WHEEL = 5;
