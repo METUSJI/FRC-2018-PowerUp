@@ -13,6 +13,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	public DriveStraightPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
+		requires(Robot.TANK_DRIVE_SUBSYSTEM);
 		setSetpoint(setpoint);
 		getPIDController().setAbsoluteTolerance(1.5);
 		getPIDController().setOutputRange(MINIMUM_OUTPUT, MAXIMUM_OUTPUT);
@@ -26,10 +27,10 @@ public class DriveStraightPIDCommand extends PIDCommand {
 	@Override
 	protected double returnPIDInput() {
 		if (count % 3 == 0) {  
-			System.out.println("Travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled());
-			System.out.println("Left Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
-			System.out.println("Right Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
-			System.out.println("Setpoint: " + getSetpoint());
+//			System.out.println("Travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled());
+//			System.out.println("Left Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
+//			System.out.println("Right Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
+//			System.out.println("Setpoint: " + getSetpoint());
 		}
 		count++;
 		return Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled();
@@ -37,6 +38,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	@Override 
 	protected void usePIDOutput(double output) {
+		System.out.println("PID Output: " + output);
 		Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, -output); //direction is inverted
 	}
 
@@ -47,7 +49,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 		}
 		boolean finished = getPIDController().onTarget();
 		if(finished) {
-			System.out.println("Drive straight finished");
+//			System.out.println("Drive straight finished");
 			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
 			Robot.TANK_DRIVE_SUBSYSTEM.resetAll();
 			getPIDController().disable();

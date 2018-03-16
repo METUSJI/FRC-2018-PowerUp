@@ -24,13 +24,13 @@ public class OpenClawCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.CUBE_CLAW_MOVEMENT_SUBSYSTEM.openClaw();
-    	System.out.println("Opening claw");
+//    	System.out.println("Opening claw");
     	isOpen = true;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	System.out.println("Finished opening claw");
+//    	System.out.println("Finished opening claw");
         return isOpen;
     }
 

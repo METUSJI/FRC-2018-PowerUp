@@ -1,12 +1,13 @@
 package org.usfirst.frc.team151.robot;
 
 
-import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
+//import org.usfirst.frc.team151.robot.commands.ChangeElevatorSetpointCommand;
 import org.usfirst.frc.team151.robot.commands.CloseClawCommand;
-import org.usfirst.frc.team151.robot.commands.DeltaSetpointElevatorCommand;
-import org.usfirst.frc.team151.robot.commands.ElevatorPIDToManualCommandGroup;
-import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
+//import org.usfirst.frc.team151.robot.commands.DeltaSetpointElevatorCommand;
+//import org.usfirst.frc.team151.robot.commands.ElevatorPIDToManualCommandGroup;
+//import org.usfirst.frc.team151.robot.commands.EnableElevatorPIDCommand;
 import org.usfirst.frc.team151.robot.commands.OpenClawCommand;
+import org.usfirst.frc.team151.robot.commands.TimedSpinCubeWheelsCommand;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -32,23 +33,23 @@ public class CoDriverOI extends OI {
 		rightBumper = new JoystickButton(joystick, RobotMap.RIGHT_BUMPER);
 		
 		//ground level: 0.5
-		a.whenPressed(new ChangeElevatorSetpointCommand(0.5));
-		//switch level: 16
-		x.whenPressed(new ChangeElevatorSetpointCommand(5));
-		//low/mid scale level: 65
-		b.whenPressed(new ChangeElevatorSetpointCommand(10));
-		//high scale level: 90
-		y.whenPressed(new ChangeElevatorSetpointCommand(16));
-		
-		back.whenPressed(new DeltaSetpointElevatorCommand(-2));
-		start.whenPressed(new DeltaSetpointElevatorCommand(2));
-		
-		leftJoystick.whenPressed(new ElevatorPIDToManualCommandGroup());
-		rightJoystick.whenPressed(new EnableElevatorPIDCommand());
-						
+//		a.whenPressed(new ChangeElevatorSetpointCommand(0.5));
+//		//switch level: 16
+//		x.whenPressed(new ChangeElevatorSetpointCommand(5));
+//		//low/mid scale level: 65
+//		b.whenPressed(new ChangeElevatorSetpointCommand(10));
+//		//high scale level: 90
+//		y.whenPressed(new ChangeElevatorSetpointCommand(16));
+//		
+//		back.whenPressed(new DeltaSetpointElevatorCommand(-2));
+//		start.whenPressed(new DeltaSetpointElevatorCommand(2));
+//		
+//		leftJoystick.whenPressed(new ElevatorPIDToManualCommandGroup());
+//		rightJoystick.whenPressed(new EnableElevatorPIDCommand());
+//						
 		leftBumper.whenPressed(new OpenClawCommand());
 		rightBumper.whenPressed(new CloseClawCommand());
 		
-		
+//		a.whenPressed(new TimedSpinCubeWheelsCommand(2.5));
 	}
 }

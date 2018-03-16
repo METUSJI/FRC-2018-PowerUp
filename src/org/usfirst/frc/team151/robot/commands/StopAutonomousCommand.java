@@ -1,34 +1,33 @@
 package org.usfirst.frc.team151.robot.commands;
 
 import org.usfirst.frc.team151.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  *
  */
-public class TimedSpinCubeWheelsCommand extends TimedCommand {
+public class StopAutonomousCommand extends TimedCommand {
 
-    public TimedSpinCubeWheelsCommand(double timeout) {
+    public StopAutonomousCommand(double timeout) {
         super(timeout);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        requires(Robot.CUBE_CLAW_WHEELS_SUBSYSTEM);
+//        System.out.println("In constructor stopAuto, current time is: " + System.currentTimeMillis());
+        requires(Robot.TANK_DRIVE_SUBSYSTEM);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-//    	System.out.println("Starting TimedCubeWheels");
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.CUBE_CLAW_WHEELS_SUBSYSTEM.spinWheelsAuto(-0.7); 
+    	Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
+//    	System.out.println("In execute for stopAuto, current time is: " + System.currentTimeMillis());
     }
 
     // Called once after timeout
     protected void end() {
-    	Robot.CUBE_CLAW_WHEELS_SUBSYSTEM.spinWheelsAuto(0);
-//    	System.out.println("Finished TimedCubeWheels");
     }
 
     // Called when another command which requires one or more of the same

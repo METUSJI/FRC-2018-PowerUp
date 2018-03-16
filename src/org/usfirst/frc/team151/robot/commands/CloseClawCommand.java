@@ -24,7 +24,7 @@ public class CloseClawCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.CUBE_CLAW_MOVEMENT_SUBSYSTEM.closeClaw();
-    	System.out.println("close claw command running");
+//    	System.out.println("close claw command running");
     	isClosed = true;
     	
     }

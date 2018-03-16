@@ -1,6 +1,11 @@
 package org.usfirst.frc.team151.robot.subsystems;
 
 
+import org.usfirst.frc.team151.robot.RobotMap;
+import org.usfirst.frc.team151.robot.commands.NeutralClawCommand;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -8,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CubeClawMovementSubsystem extends Subsystem {
 	
-//	DoubleSolenoid solenoid = new DoubleSolenoid(RobotMap.RIGHT_CLAW_FORWARD_CHANNEL, RobotMap.RIGHT_CLAW_REVERSE_CHANNEL);
+	Solenoid solenoid = new Solenoid(0); //FIX THIS LATER IN ROBOT MAP
 		
 	public CubeClawMovementSubsystem( ) {
 
@@ -17,21 +22,20 @@ public class CubeClawMovementSubsystem extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-//        setDefaultCommand(new NeutralClawCommand());
+        setDefaultCommand(new NeutralClawCommand());
     }
     
     public void openClaw() {
-//    	solenoid.set(DoubleSolenoid.Value.kForward);
-    	System.out.println("Claw opened");
+    	solenoid.set(true);
+//    	System.out.println("Claw opened");
     }
     
     public void closeClaw() {
-//    	solenoid.set(DoubleSolenoid.Value.kReverse);
-    }
+    	solenoid.set(false);
+    }    
     
     public void neutralClaw() {
-//    	solenoid.set(DoubleSolenoid.Value.kOff);
+    	
     }
-    
 }
 

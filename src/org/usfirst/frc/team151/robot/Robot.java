@@ -15,10 +15,14 @@ import org.usfirst.frc.team151.robot.commands.AutoEdgeOppositeScaleCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeSameScaleCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeSwitchCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoMiddleCrossBaselineCommandGroup;
+import org.usfirst.frc.team151.robot.commands.AutoSameSwitchOnlyCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoTimedDriveCommand;
+import org.usfirst.frc.team151.robot.commands.AutoTimedDriveStopCommandGroup;
+import org.usfirst.frc.team151.robot.commands.DriveEncoderCommand;
+import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
-import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
-import org.usfirst.frc.team151.robot.subsystems.ElevatorPistonSubsystem;
+//import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
+//import org.usfirst.frc.team151.robot.subsystems.ElevatorPistonSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawWheelsSubsystem;
 import org.usfirst.frc.team151.robot.subsystems.TankDriveSubsystem;
 import org.usfirst.frc.team151.robot.utils.FieldData;
@@ -35,13 +39,13 @@ import org.usfirst.frc.team151.robot.utils.FieldData.FieldThings;
 public class Robot extends IterativeRobot {
 
 	public static final TankDriveSubsystem TANK_DRIVE_SUBSYSTEM = new TankDriveSubsystem();
-	public static final ElevatorPIDSubsystem ELEVATOR_PID_SUBSYSTEM = new ElevatorPIDSubsystem();
+//	public static final ElevatorPIDSubsystem ELEVATOR_PID_SUBSYSTEM = new ElevatorPIDSubsystem();
 	public static final CubeClawMovementSubsystem CUBE_CLAW_MOVEMENT_SUBSYSTEM = new CubeClawMovementSubsystem();
 	public static final CubeClawWheelsSubsystem CUBE_CLAW_WHEELS_SUBSYSTEM = new CubeClawWheelsSubsystem();
-	public static final ElevatorPistonSubsystem ELEVATOR_PISTON_SUBSYSTEM = new ElevatorPistonSubsystem();
+//	public static final ElevatorPistonSubsystem ELEVATOR_PISTON_SUBSYSTEM = new ElevatorPistonSubsystem();
 
 	public static boolean elevatorPrint = false;
-	public static boolean autoPrint = true;
+	public static boolean autoPrint = false;
 	public static boolean drivePrint = false;
 
 	public static int fieldPosition = 0;
@@ -49,10 +53,10 @@ public class Robot extends IterativeRobot {
 	
 	/**
 	 * The distance per pulse on the encoder, based on the wheel diameter divided by
-	 * 360 pulses per revolution
+	 * 360 pulses per  ,llpp-     revolution
 	 */
-//	public static final double DISTANCE_PER_PULSE = 7.65 * Math.PI / 360;
-	public static final double DISTANCE_PER_PULSE =  6 * Math.PI / 360;
+//	public static final double DISTANCE_PER_PULSE = 7.5 * Math.PI / 2048 / 2; //actual code
+	public static final double DISTANCE_PER_PULSE =  6 * Math.PI / 360; //test robot
 
 	public static DriverOI driverOI;
 	public static CoDriverOI coDriverOI;
@@ -60,22 +64,33 @@ public class Robot extends IterativeRobot {
 	public static boolean shooterOn = false;
 	public static boolean autoReleaseOn = false;
 
-	public static final double kPe = 0.2;
-	public static final double kIe = 0.01;
-	public static final double kDe = 0;
-
-	public static final double kPd = 0.04;
-	public static final double kId = 0;
-	public static final double kDd = 0;
+//	public static final double kPe = 0.2;
+//	public static final double kIe = 0.01;
+//	public static final double kDe = 0;
+//
+//	public static final double kPd = 0.04;
+//	public static final double kId = 0;
+//	public static final double kDd = 0;
 
 	public static final double kPt = 0.035;
 	public static final double kIt = 0;
 	public static final double kDt = 0.006;
+	
+	public static final double kPe = 0.2;
+	public static final double kIe = 0.01;
+	public static final double kDe = 0;
 
+	public static double kPd = 0.04;
+	public static double kId = 0;
+	public static double kDd = 0;
+	
 	public static double startTime = 0;
 	public static double endTime = 0;
 	public static double elapsedTime = 0;
 	public static boolean autoReleasePrereqOn = false;
+	
+	public static double driveEncoder1 = 0;
+	public static double driveEncoder2 = 0;
 
 	Preferences prefs;
 	public static int whichRobot;
@@ -125,15 +140,20 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Strategy Chooser", strategyChooser);
 
 		prefs = Preferences.getInstance();
-		whichRobot = prefs.getInt("whichRobot", 0);
+		whichRobot = prefs.getInt("whichRobot", 0);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
 
 		SmartDashboard.putString("RoboRio Name", WhichRobot.convertIntToRobot(whichRobot).toString());
 
 		// UsbCamera camera = CameraServer.getInstance().startAutomaticCapture(0);
 
-		
 		SmartDashboard.putNumber("Angle", Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle()); // put angle value to
 		// shuffleboard
+		prefs.putDouble("kPd", kPd);
+		prefs.putDouble("kId", kId);
+		prefs.putDouble("kDd", kDd);
+		
+		prefs.putDouble("Initial Speed", driveEncoder1);
+		prefs.putDouble("Second Speed", driveEncoder2);
 	}
 	//
 	// public Command chooseAutonomousCommand(int position, String strategy) {
@@ -147,7 +167,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		ELEVATOR_PID_SUBSYSTEM.disable();
+//		ELEVATOR_PID_SUBSYSTEM.disable();
 	}
 
 	@Override
@@ -169,18 +189,25 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		
+		kPd = prefs.getDouble("kPd", 0);
+		kId = prefs.getDouble("kId", 0);
+		kDd = prefs.getDouble("kDd", 0);
+		
+//		System.out.println("kPd" + kPd);
+//		System.out.println("kId" + kId);
+//		System.out.println("kDd" + kDd);
+		
 		FieldData.gameData = "";
 		FieldData.isDataValid();
 		
 		String strategy = strategyChooser.getSelected();
 		String pos = positionChooser.getSelected();
 		
-		
 		if (strategy.equals("Brick")) {
 			autonomousCommand = null;
 		}
 		else if (strategy.equals("Timed Drive")) {
-			autonomousCommand = new AutoTimedDriveCommand(2.5);
+			autonomousCommand = new AutoTimedDriveStopCommandGroup();
 		}
 		else if (strategy.equals("Pass Auto Line") && positionChooser.getSelected().equals("Middle")) {
 			autonomousCommand = new AutoMiddleCrossBaselineCommandGroup();
@@ -190,7 +217,8 @@ public class Robot extends IterativeRobot {
 		}
 		else if (pos.equals("Middle") && strategy.equals("Skewed Switch")) {
 //			autonomousCommand = new AutoSameSwitchOnlyCommandGroup();
-			autonomousCommand = null;
+//			autonomousCommand = new DriveEncoderCommand(36, driveEncoder1, driveEncoder2);
+			autonomousCommand = new DriveStraightPIDCommand(24, Robot.kPd, Robot.kId, Robot.kDd);
 		}
 		else if (strategy.equals("Switch") && pos.equals("Right")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.RIGHT)) {
@@ -251,17 +279,13 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = null;
 		}
 
-		System.out.println("Strategy: " + strategy);
-		System.out.println("Position: " + pos);
+//		System.out.println("Strategy: " + strategy);
+//		System.out.println("Position: " + pos);
 		
 		if (autonomousCommand != null) {
 			autoOn = true;
-
-			System.out.println("Autonomous command:  " + autonomousCommand.getName());
-			
 			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
 			Robot.TANK_DRIVE_SUBSYSTEM.resetEncoders();
-			System.out.println("Before start auto");
 			autonomousCommand.start();
 		}
 
@@ -277,7 +301,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		
+		Robot.TANK_DRIVE_SUBSYSTEM.resetEncoders();
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 			if (RobotMap.hasGyro)
@@ -291,13 +315,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
 		Scheduler.getInstance().run();
-		// System.out.println("Current Angle: " +
-		// Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+		System.out.println("Left Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get() + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance());
+		System.out.println("Right Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get()  + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
+		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+//		System.out.println("Averaged Distance travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getEncoder());
+//		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 	}
 
-	/**
+	/**  
 	 * This function is called periodically during test mode
 	 */
 	@Override

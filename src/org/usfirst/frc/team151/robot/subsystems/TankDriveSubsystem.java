@@ -32,8 +32,8 @@ public class TankDriveSubsystem extends Subsystem {
 
 	private DifferentialDrive drive = null;
 
-	private double turnGain = 0.25;
-	private double straightGain = 0.75;
+	private double turnGain = 0.75;
+	private double straightGain = 1.00;
 
 	public TankDriveSubsystem() {
 		leftRear = new Spark(RobotMap.DRIVE_LEFT_REAR);
@@ -46,7 +46,7 @@ public class TankDriveSubsystem extends Subsystem {
 
 		right.setInverted(true);
 		left.setInverted(true);
-
+		
 		drive = new DifferentialDrive(left, right);
 
 		leftEnc = new Encoder(RobotMap.LEFT_DRIVE_ENCODER_A, 
@@ -95,24 +95,41 @@ public class TankDriveSubsystem extends Subsystem {
 	public void driveArcade(OI oi) {
 		double throttle = deadzone(oi, RobotMap.LEFT_JOYSTICK_VERTICAL_AXIS);
 		double turn = deadzone(oi, RobotMap.RIGHT_JOYSTICK_LATERAL_AXIS);
-
+		
 		if(throttle != 0)
 			turn = turnGain * (turn * Math.abs(throttle));
-
+		else
+			turn *= turnGain;
+		
 		double initLeft = throttle - turn;
 		double initRight = throttle + turn;
 
 		double left = straightGain * (initLeft + skim(initRight));
 		double right = straightGain * (initRight + skim(initLeft));
 
-		drive(0.75 * left, 0.75* right);
-
-		if(Robot.drivePrint) {
-			System.out.println("Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
-			System.out.println("Left speed controllers' output: " + left);
-			System.out.println("Right speed controllers' output: " + right);
-		}
-		System.out.println("Current motor output: " + 0.75 * left);
+		drive(left, right);
+		
+//		double initLeft = (throttle + turn) / 2; //check this
+//		double initRight = (throttle - turn) / 2;
+//		
+//		double left = 0;
+//		double right = 0;
+//		
+//		if (Robot.driverOI.getJoystick().getTriggerPressed()) {
+//			if (initLeft * 1.5 <= 1) {
+//				left = initLeft * 1.5;
+//			}
+//			else if (initLeft * 1.5 > 1) {
+//				left = initLeft;
+//			}
+//			if (initRight * 1.5 <= 1) {
+//				right = initRight * 1.5;
+//			}
+//			else if (initRight * 1.5 > 1) {
+//				right = initRight;
+//			}
+//		}
+//		drive (left, right);
 	}
 
 	private double skim(double speed) {
@@ -142,11 +159,15 @@ public class TankDriveSubsystem extends Subsystem {
 	 */
 	private double deadzone(OI oi, int axis) {
 		double rawAxis = oi.getJoystick().getRawAxis(axis);
-		if(rawAxis > 0.03 || rawAxis < -0.03) {
+		if(rawAxis > 0.04 || rawAxis < -0.04) {
 			return rawAxis;
 		} else {
 			return 0;
 		}
+	}
+	
+	public void stopMotor() {
+		drive.stopMotor();
 	}
 
 	/**
