@@ -44,8 +44,8 @@ public class TankDriveSubsystem extends Subsystem {
 		right = new SpeedControllerGroup(rightFront, rightRear);
 		left = new SpeedControllerGroup(leftFront, leftRear);
 
-//		right.setInverted(true);
-//		left.setInverted(true);
+		right.setInverted(true);
+		left.setInverted(true);
 		
 		drive = new DifferentialDrive(left, right);
 

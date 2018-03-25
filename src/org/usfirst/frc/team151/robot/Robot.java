@@ -18,8 +18,10 @@ import org.usfirst.frc.team151.robot.commands.AutoMiddleCrossBaselineCommandGrou
 import org.usfirst.frc.team151.robot.commands.AutoSameSwitchOnlyCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoTimedDriveCommand;
 import org.usfirst.frc.team151.robot.commands.AutoTimedDriveStopCommandGroup;
+import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
 import org.usfirst.frc.team151.robot.commands.DriveEncoderCommand;
 import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
+import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.ElevatorPistonSubsystem;
@@ -55,8 +57,9 @@ public class Robot extends IterativeRobot {
 	 * The distance per pulse on the encoder, based on the wheel diameter divided by
 	 * 360 pulses per revolution
 	 */
-//	public static final double DISTANCE_PER_PULSE = 7.5 * Math.PI / 2048 / 2; //actual code
-	public static final double DISTANCE_PER_PULSE =  6 * Math.PI / 360; //test robot
+//	public static final double DISTANCE_PER_PULSE = 7.5 * Math.PI / 4096; //actual code
+	public static final double DISTANCE_PER_PULSE = 7.5 * Math.PI / 3650;
+//	public static final double DISTANCE_PER_PULSE =  6 * Math.PI / 360; //test robot
 
 	public static DriverOI driverOI;
 	public static CoDriverOI coDriverOI;
@@ -72,15 +75,15 @@ public class Robot extends IterativeRobot {
 //	public static final double kId = 0;
 //	public static final double kDd = 0;
 
-	public static final double kPt = 0.035;
-	public static final double kIt = 0;
-	public static final double kDt = 0.006;
+	public static double kPt = 0.107;
+	public static double kIt = 0;
+	public static double kDt = 0.0;
 	
 	public static final double kPe = 0.2;
 	public static final double kIe = 0.01;
 	public static final double kDe = 0;
 
-	public static double kPd = 0.04;
+	public static double kPd = 0.10;
 	public static double kId = 0;
 	public static double kDd = 0;
 	
@@ -94,6 +97,8 @@ public class Robot extends IterativeRobot {
 
 	Preferences prefs;
 	public static int whichRobot;
+	
+	int count = 0;
 
 	public enum WhichRobot {
 		DEFAULT, DA_VINCI, NEWTON, TESLA;
@@ -123,7 +128,6 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		driverOI = new DriverOI(0);
 		coDriverOI = new CoDriverOI(1);
-
 		
 		positionChooser.addObject("Left", "Left"); 
 		positionChooser.addDefault("Middle", "Middle");
@@ -149,6 +153,10 @@ public class Robot extends IterativeRobot {
 		prefs.putDouble("kPd", kPd);
 		prefs.putDouble("kId", kId);
 		prefs.putDouble("kDd", kDd);
+		
+		prefs.putDouble("kPt", kPt);
+		prefs.putDouble("kIt", kIt);
+		prefs.putDouble("kDt", kDt);
 		
 		prefs.putDouble("Initial Speed", encoderInitSpeed);
 		prefs.putDouble("Second Speed", encoderSecondSpeed);
@@ -191,6 +199,10 @@ public class Robot extends IterativeRobot {
 		kId = prefs.getDouble("kId", 0);
 		kDd = prefs.getDouble("kDd", 0);
 		
+		kPt = prefs.getDouble("kPt", 0);
+		kIt = prefs.getDouble("kIt", 0);
+		kDt = prefs.getDouble("kDt", 0);
+		
 		encoderInitSpeed = prefs.getDouble("Initial Speed", 0);
 		encoderSecondSpeed = prefs.getDouble("Second Speed", 0);
 		
@@ -215,7 +227,7 @@ public class Robot extends IterativeRobot {
 		else if (pos.equals("Middle") && strategy.equals("Skewed Switch")) {
 //			autonomousCommand = new AutoSameSwitchOnlyCommandGroup();
 //			autonomousCommand = new DriveEncoderCommand(36, driveEncoder1, driveEncoder2);
-			autonomousCommand = new DriveStraightPIDCommand(36, Robot.kPd, Robot.kId, Robot.kDd);
+			autonomousCommand = new TestDriveCommand();
 		}
 		else if (strategy.equals("Switch") && pos.equals("Right")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.RIGHT)) {
@@ -230,7 +242,8 @@ public class Robot extends IterativeRobot {
 		}
 		else if (strategy.equals("Switch") && pos.equals("Middle")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.LEFT)) {
-				autonomousCommand = new AutoCenterSwitchCommandGroup(1);
+//				autonomousCommand = new AutoCenterSwitchCommandGroup(1);
+				autonomousCommand = new AutoTurnPIDCommand(180, Robot.kPt, Robot.kIt, Robot.kDt);
 			}
 			else if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.RIGHT)) {
 				autonomousCommand = new AutoCenterSwitchCommandGroup(-1);
@@ -313,11 +326,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-//		System.out.println("Left Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get() + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance());
-//		System.out.println("Right Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get()  + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
+		count++;
+		if (count % 3 == 0)
+		System.out.println("Left Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get() + " Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance()
+			+ " Right Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get()  + " Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
 //		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
-//		System.out.println("Averaged Distance travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getEncoder());
-//		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+		System.out.println("Averaged Distance travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getEncoder());
 	}
 
 	/**  
