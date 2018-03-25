@@ -6,10 +6,9 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 
 public class DriveStraightPIDCommand extends PIDCommand {
 
-	private int count;
-	
 	double MINIMUM_OUTPUT = -0.55;
 	double MAXIMUM_OUTPUT = 0.55;
+	int count = 0;
 
 	public DriveStraightPIDCommand(double setpoint, double p, double i, double d) {
 		super(p, i, d);
@@ -26,20 +25,20 @@ public class DriveStraightPIDCommand extends PIDCommand {
 
 	@Override
 	protected double returnPIDInput() {
-		if (count % 3 == 0) {  
-//			System.out.println("Travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled());
-//			System.out.println("Left Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get());
-//			System.out.println("Right Encoder Output: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get());
-//			System.out.println("Setpoint: " + getSetpoint());
-		}
-		count++;
-		return Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled();
+		//ENCODER IS GIVIG NEGATIVE VALUES WHEN WHEELS ARE MOVING FORWARD (WITH NEGATIVE INPUTS)
+		System.out.println("Encoder: " + (-1 * Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled()));
+		return (Robot.TANK_DRIVE_SUBSYSTEM.getDistanceTraveled() * -1);
 	}
 
 	@Override 
 	protected void usePIDOutput(double output) {
-		System.out.println("PID Output: " + output);
-		Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, -output); //direction is inverted
+		count++;
+		if (count < 50) {
+			Robot.TANK_DRIVE_SUBSYSTEM.drive(-output * count / 50, -output * count / 50);
+		}
+		else {
+			Robot.TANK_DRIVE_SUBSYSTEM.drive(-output, -output); //direction is inverted
+		}
 	}
 
 	@Override
@@ -49,7 +48,6 @@ public class DriveStraightPIDCommand extends PIDCommand {
 		}
 		boolean finished = getPIDController().onTarget();
 		if(finished) {
-//			System.out.println("Drive straight finished");
 			Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
 			Robot.TANK_DRIVE_SUBSYSTEM.resetAll();
 			getPIDController().disable();

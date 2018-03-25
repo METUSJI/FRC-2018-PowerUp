@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.command.PIDCommand;
 public class AutoTurnPIDCommand extends PIDCommand {
 
 	double angle;
-	private int count = 0;
 	double currentOutput = 0;
 
 	double MINIMUM_OUTPUT = -0.43;
@@ -22,18 +21,11 @@ public class AutoTurnPIDCommand extends PIDCommand {
 		angle = setpoint;
 
 		getPIDController().setOutputRange(MINIMUM_OUTPUT, MAXIMUM_OUTPUT);
-
-		//LiveWindow.addActuator(moduleType, channel, component);
 	}
 
 	@Override
 	protected double returnPIDInput() {
-		if (count % 1 == 0) {  
-//			System.out.println("Current Angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
-		}
-		count++;
 		return Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle();
-//		return 0;
 	}
 
 	@Override

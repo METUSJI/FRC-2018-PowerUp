@@ -27,7 +27,6 @@ public class CubeClawMovementSubsystem extends Subsystem {
     
     public void openClaw() {
     	solenoid.set(true);
-//    	System.out.println("Claw opened");
     }
     
     public void closeClaw() {

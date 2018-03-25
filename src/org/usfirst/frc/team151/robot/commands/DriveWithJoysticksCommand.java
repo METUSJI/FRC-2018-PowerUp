@@ -20,13 +20,7 @@ public class DriveWithJoysticksCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//if (Robot.autoOn) {
-		//	return;
-		//}
 		Robot.TANK_DRIVE_SUBSYSTEM.drive(Robot.driverOI);
-//		else {
-//			System.out.println("Inside else statement of execute");
-//		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

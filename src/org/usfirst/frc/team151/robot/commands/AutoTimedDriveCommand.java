@@ -20,17 +20,13 @@ public class AutoTimedDriveCommand extends TimedCommand {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.TANK_DRIVE_SUBSYSTEM.drive(0.6, 0.6);
-	//	System.out.println("In autonomousexecute");
+		Robot.TANK_DRIVE_SUBSYSTEM.drive(-0.6, -0.6);
 	}
 
 	// Called once after timeout
 	protected void end() {
-//		Robot.TANK_DRIVE_SUBSYSTEM.resetEncoders();
-//		Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
-		Robot.TANK_DRIVE_SUBSYSTEM.stopMotor();
-		System.out.println("IN auto end");
-		//    	Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
+		Robot.TANK_DRIVE_SUBSYSTEM.resetAll();
+		Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
 	}
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run

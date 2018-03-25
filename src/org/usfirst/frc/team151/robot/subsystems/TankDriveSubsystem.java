@@ -88,7 +88,7 @@ public class TankDriveSubsystem extends Subsystem {
 	public void drive(OI oi) {
 		double left = deadzone(oi, RobotMap.LEFT_JOYSTICK_VERTICAL_AXIS);
 		double right = deadzone(oi, RobotMap.RIGHT_JOYSTICK_VERTICAL_AXIS);
-		if (left != 0.0 || right != 0.0)System.out.println("Left = " + left + "Right = " + right);
+//		if (left != 0.0 || right != 0.0)System.out.println("Left = " + left + "Right = " + right);
 		drive(left, right);
 	}
 

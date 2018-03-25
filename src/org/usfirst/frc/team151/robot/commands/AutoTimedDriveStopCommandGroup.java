@@ -9,6 +9,5 @@ public class AutoTimedDriveStopCommandGroup extends CommandGroup {
 
     public AutoTimedDriveStopCommandGroup() {
         addSequential(new AutoTimedDriveCommand(5));
-//        addSequential(new StopAutonomousCommand(10));
     }
 }

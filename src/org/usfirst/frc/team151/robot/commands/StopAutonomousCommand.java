@@ -11,7 +11,6 @@ public class StopAutonomousCommand extends TimedCommand {
 
     public StopAutonomousCommand(double timeout) {
         super(timeout);
-//        System.out.println("In constructor stopAuto, current time is: " + System.currentTimeMillis());
         requires(Robot.TANK_DRIVE_SUBSYSTEM);
     }
 
@@ -23,7 +22,6 @@ public class StopAutonomousCommand extends TimedCommand {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.TANK_DRIVE_SUBSYSTEM.drive(0, 0);
-//    	System.out.println("In execute for stopAuto, current time is: " + System.currentTimeMillis());
     }
 
     // Called once after timeout

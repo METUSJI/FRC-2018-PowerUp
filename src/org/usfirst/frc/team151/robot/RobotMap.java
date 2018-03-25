@@ -10,7 +10,6 @@ public class RobotMap {
 	public static boolean hasGyro = true;
 	public static boolean hasPneumatics = true;
 	
-	
 	//TALONS
 	public static final int DRIVE_LEFT_REAR = 1;
 	public static final int DRIVE_LEFT_FRONT = 0;

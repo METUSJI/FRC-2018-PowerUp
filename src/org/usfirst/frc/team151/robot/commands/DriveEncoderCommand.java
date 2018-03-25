@@ -68,11 +68,13 @@ public class DriveEncoderCommand extends Command {
     		rightIsFinished = true;
     	}
     	Robot.TANK_DRIVE_SUBSYSTEM.drive(left, right); //NOT NEGATIVE, CHANGE THIS FOR REAL ROBOT, SECOND VALUE IS RIGHT
-//    	System.out.println("Execute, left Encoder is " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance() + ", Right is " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
+    	if (Robot.autoOn == false) {
+    		return true;
+    	}
         return (leftIsFinished && rightIsFinished);
     }
 
