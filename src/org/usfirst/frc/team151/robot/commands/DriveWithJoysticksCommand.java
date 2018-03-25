@@ -23,7 +23,6 @@ public class DriveWithJoysticksCommand extends Command {
 		//if (Robot.autoOn) {
 		//	return;
 		//}
-		System.out.println("Starting DriveWithJoysticks excecute");
 		Robot.TANK_DRIVE_SUBSYSTEM.drive(Robot.driverOI);
 //		else {
 //			System.out.println("Inside else statement of execute");

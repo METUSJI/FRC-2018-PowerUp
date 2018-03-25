@@ -89,8 +89,8 @@ public class Robot extends IterativeRobot {
 	public static double elapsedTime = 0;
 	public static boolean autoReleasePrereqOn = false;
 	
-	public static double driveEncoder1 = 0;
-	public static double driveEncoder2 = 0;
+	public static double encoderInitSpeed = 0;
+	public static double encoderSecondSpeed = 0;
 
 	Preferences prefs;
 	public static int whichRobot;
@@ -152,8 +152,8 @@ public class Robot extends IterativeRobot {
 		prefs.putDouble("kId", kId);
 		prefs.putDouble("kDd", kDd);
 		
-		prefs.putDouble("Initial Speed", driveEncoder1);
-		prefs.putDouble("Second Speed", driveEncoder2);
+		prefs.putDouble("Initial Speed", encoderInitSpeed);
+		prefs.putDouble("Second Speed", encoderSecondSpeed);
 	}
 	//
 	// public Command chooseAutonomousCommand(int position, String strategy) {
@@ -316,9 +316,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println("Left Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get() + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance());
-		System.out.println("Right Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get()  + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
-		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
+//		System.out.println("Left Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get() + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance());
+//		System.out.println("Right Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get()  + "Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
+//		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 //		System.out.println("Averaged Distance travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getEncoder());
 //		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
 	}

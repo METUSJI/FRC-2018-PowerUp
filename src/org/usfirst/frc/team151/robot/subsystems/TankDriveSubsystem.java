@@ -44,8 +44,8 @@ public class TankDriveSubsystem extends Subsystem {
 		right = new SpeedControllerGroup(rightFront, rightRear);
 		left = new SpeedControllerGroup(leftFront, leftRear);
 
-		right.setInverted(true);
-		left.setInverted(true);
+//		right.setInverted(true);
+//		left.setInverted(true);
 		
 		drive = new DifferentialDrive(left, right);
 
@@ -88,7 +88,7 @@ public class TankDriveSubsystem extends Subsystem {
 	public void drive(OI oi) {
 		double left = deadzone(oi, RobotMap.LEFT_JOYSTICK_VERTICAL_AXIS);
 		double right = deadzone(oi, RobotMap.RIGHT_JOYSTICK_VERTICAL_AXIS);
-
+		if (left != 0.0 || right != 0.0)System.out.println("Left = " + left + "Right = " + right);
 		drive(left, right);
 	}
 
@@ -106,7 +106,7 @@ public class TankDriveSubsystem extends Subsystem {
 
 		double left = straightGain * (initLeft + skim(initRight));
 		double right = straightGain * (initRight + skim(initLeft));
-
+	
 		drive(left, right);
 		
 //		double initLeft = (throttle + turn) / 2; //check this
