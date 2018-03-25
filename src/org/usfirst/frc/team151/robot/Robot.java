@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
 	public static boolean elevatorPrint = false;
 	public static boolean autoPrint = false;
 	public static boolean drivePrint = false;
-
+ 
 	public static int fieldPosition = 0;
 	public static String strategy = null;
 	

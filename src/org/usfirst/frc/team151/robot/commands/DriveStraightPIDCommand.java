@@ -45,7 +45,7 @@ public class DriveStraightPIDCommand extends PIDCommand {
 	protected boolean isFinished() {
 		if (Robot.autoOn == false) {
 			return true;
-		}
+		} 
 		boolean finished = getPIDController().onTarget();
 		if(finished) {
 			System.out.println("Finished");
