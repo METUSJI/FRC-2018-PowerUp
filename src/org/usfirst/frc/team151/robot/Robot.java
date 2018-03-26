@@ -11,16 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team151.robot.commands.AutoCenterSwitchCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeCrossBaselineCommandGroup;
-import org.usfirst.frc.team151.robot.commands.AutoEdgeOppositeScaleCommandGroup;
-import org.usfirst.frc.team151.robot.commands.AutoEdgeSameScaleCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoEdgeSwitchCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoMiddleCrossBaselineCommandGroup;
 import org.usfirst.frc.team151.robot.commands.AutoSameSwitchOnlyCommandGroup;
-import org.usfirst.frc.team151.robot.commands.AutoTimedDriveCommand;
 import org.usfirst.frc.team151.robot.commands.AutoTimedDriveStopCommandGroup;
-import org.usfirst.frc.team151.robot.commands.AutoTurnPIDCommand;
-import org.usfirst.frc.team151.robot.commands.DriveEncoderCommand;
-import org.usfirst.frc.team151.robot.commands.DriveStraightPIDCommand;
 import org.usfirst.frc.team151.robot.commands.TestDriveCommand;
 import org.usfirst.frc.team151.robot.subsystems.CubeClawMovementSubsystem;
 //import org.usfirst.frc.team151.robot.subsystems.ElevatorPIDSubsystem;
@@ -135,7 +129,7 @@ public class Robot extends IterativeRobot {
 
 		strategyChooser.addDefault("Brick", "Brick");
 		strategyChooser.addObject("Switch", "Switch");
-		strategyChooser.addObject("Scale", "Scale");
+		strategyChooser.addObject("Test", "Test");
 		strategyChooser.addObject("Pass Auto Line", "Pass Auto Line");
 		strategyChooser.addObject("Skewed Switch", "Skewed Switch");
 		strategyChooser.addObject("Timed Drive", "Timed Drive");
@@ -225,9 +219,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new AutoEdgeCrossBaselineCommandGroup();
 		}
 		else if (pos.equals("Middle") && strategy.equals("Skewed Switch")) {
-//			autonomousCommand = new AutoSameSwitchOnlyCommandGroup();
-//			autonomousCommand = new DriveEncoderCommand(36, driveEncoder1, driveEncoder2);
-			autonomousCommand = new TestDriveCommand();
+			autonomousCommand = new AutoSameSwitchOnlyCommandGroup();
 		}
 		else if (strategy.equals("Switch") && pos.equals("Right")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.RIGHT)) {
@@ -242,8 +234,7 @@ public class Robot extends IterativeRobot {
 		}
 		else if (strategy.equals("Switch") && pos.equals("Middle")) {
 			if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.LEFT)) {
-//				autonomousCommand = new AutoCenterSwitchCommandGroup(1);
-				autonomousCommand = new AutoTurnPIDCommand(180, Robot.kPt, Robot.kIt, Robot.kDt);
+				autonomousCommand = new AutoCenterSwitchCommandGroup(1);
 			}
 			else if (FieldData.checkFieldPosition(FieldThings.SWITCH, Direction.RIGHT)) {
 				autonomousCommand = new AutoCenterSwitchCommandGroup(-1);
@@ -263,35 +254,13 @@ public class Robot extends IterativeRobot {
 				autonomousCommand = null;
 			}
 		}
-		else if (strategy.equals("Scale") && pos.equals("Left")) {
-			if (FieldData.checkFieldPosition(FieldThings.SCALE, Direction.LEFT)) {
-				autonomousCommand = new AutoEdgeSameScaleCommandGroup(1);
-			}
-			else if (FieldData.checkFieldPosition(FieldThings.SCALE, Direction.RIGHT)) {
-				autonomousCommand = new AutoEdgeOppositeScaleCommandGroup(1);
-			}
-			else {
-				autonomousCommand = null;
-			}
-		}
-		else if (strategy.equals("Scale") && pos.equals("Right")) {
-			if (FieldData.checkFieldPosition(FieldThings.SCALE, Direction.RIGHT)) {
-				autonomousCommand = new AutoEdgeSameScaleCommandGroup(-1);
-			}
-			else if (FieldData.checkFieldPosition(FieldThings.SCALE, Direction.LEFT)) {
-				autonomousCommand = new AutoEdgeOppositeScaleCommandGroup(-1);
-			}
-			else {
-				autonomousCommand = new AutoEdgeCrossBaselineCommandGroup();
-			}
+		else if (strategy.equals("Test")) {
+			autonomousCommand = new TestDriveCommand();
 		}
 		else {
 			autonomousCommand = null;
 		}
 
-//		System.out.println("Strategy: " + strategy);
-//		System.out.println("Position: " + pos);
-		
 		if (autonomousCommand != null) {
 			autoOn = true;
 			Robot.TANK_DRIVE_SUBSYSTEM.gyro.reset();
@@ -327,11 +296,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		count++;
-		if (count % 3 == 0)
-		System.out.println("Left Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get() + " Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance()
-			+ " Right Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get()  + " Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
+//		if (count % 3 == 0)
+//		System.out.println("Left Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.get() + " Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.leftEnc.getDistance()
+//			+ " Right Pulses: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.get()  + " Distance: " + Robot.TANK_DRIVE_SUBSYSTEM.rightEnc.getDistance());
 //		System.out.println("Gyro angle: " + Robot.TANK_DRIVE_SUBSYSTEM.gyro.getAngle());
-		System.out.println("Averaged Distance travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getEncoder());
+//		System.out.println("Averaged Distance travelled: " + Robot.TANK_DRIVE_SUBSYSTEM.getEncoder());
 	}
 
 	/**  
